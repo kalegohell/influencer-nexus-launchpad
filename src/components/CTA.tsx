@@ -49,31 +49,51 @@ const CTA = () => {
                 Claim Your Free Strategy Session
               </Button>
             </DialogTrigger>
-            <DialogContent className="bg-slate-900 border-slate-700 max-w-md">
+            <DialogContent className="bg-white/95 backdrop-blur-xl border-white/20 shadow-2xl max-w-md rounded-2xl">
               <DialogHeader>
-                <DialogTitle className="text-white text-xl">Claim Your Free Strategy Session</DialogTitle>
+                <DialogTitle className="text-slate-800 text-2xl font-bold bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
+                  Claim Your Free Strategy Session
+                </DialogTitle>
               </DialogHeader>
-              <div className="space-y-4">
-                <div>
-                  <Label htmlFor="company-name" className="text-white">Company Name</Label>
-                  <Input id="company-name" className="bg-slate-800 border-slate-600 text-white" />
+              <div className="space-y-6 p-2">
+                <div className="space-y-2">
+                  <Label htmlFor="company-name" className="text-slate-700 font-medium text-sm">Company Name</Label>
+                  <Input 
+                    id="company-name" 
+                    className="bg-white/80 border-slate-200 text-slate-800 focus:border-blue-400 focus:ring-2 focus:ring-blue-100 rounded-xl h-12 px-4 transition-all duration-200 placeholder:text-slate-400" 
+                    placeholder="Enter your company name"
+                  />
                 </div>
-                <div>
-                  <Label htmlFor="work-email" className="text-white">Work Email</Label>
-                  <Input id="work-email" type="email" className="bg-slate-800 border-slate-600 text-white" />
+                <div className="space-y-2">
+                  <Label htmlFor="work-email" className="text-slate-700 font-medium text-sm">Work Email</Label>
+                  <Input 
+                    id="work-email" 
+                    type="email" 
+                    className="bg-white/80 border-slate-200 text-slate-800 focus:border-blue-400 focus:ring-2 focus:ring-blue-100 rounded-xl h-12 px-4 transition-all duration-200 placeholder:text-slate-400" 
+                    placeholder="your@company.com"
+                  />
                 </div>
-                <div>
-                  <Label htmlFor="phone" className="text-white">Phone Number</Label>
-                  <Input id="phone" type="tel" className="bg-slate-800 border-slate-600 text-white" />
+                <div className="space-y-2">
+                  <Label htmlFor="phone" className="text-slate-700 font-medium text-sm">Phone Number</Label>
+                  <Input 
+                    id="phone" 
+                    type="tel" 
+                    className="bg-white/80 border-slate-200 text-slate-800 focus:border-blue-400 focus:ring-2 focus:ring-blue-100 rounded-xl h-12 px-4 transition-all duration-200 placeholder:text-slate-400" 
+                    placeholder="+1 (555) 123-4567"
+                  />
                 </div>
-                <div>
-                  <Label htmlFor="current-budget" className="text-white">Current Monthly Marketing Budget</Label>
-                  <Input id="current-budget" placeholder="$10,000" className="bg-slate-800 border-slate-600 text-white" />
+                <div className="space-y-2">
+                  <Label htmlFor="current-budget" className="text-slate-700 font-medium text-sm">Current Monthly Marketing Budget</Label>
+                  <Input 
+                    id="current-budget" 
+                    placeholder="$10,000" 
+                    className="bg-white/80 border-slate-200 text-slate-800 focus:border-blue-400 focus:ring-2 focus:ring-blue-100 rounded-xl h-12 px-4 transition-all duration-200 placeholder:text-slate-400" 
+                  />
                 </div>
-                <Button className="w-full bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600">
+                <Button className="w-full bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white h-12 rounded-xl font-semibold shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-200">
                   Schedule My Free Session
                 </Button>
-                <p className="text-xs text-white/60 text-center">
+                <p className="text-xs text-slate-500 text-center">
                   No spam. Your information is safe with us. Session typically scheduled within 24 hours.
                 </p>
               </div>

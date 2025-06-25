@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
@@ -50,49 +51,60 @@ const Hero = () => {
                   <span className="relative z-10">Start as Brand</span>
                 </Button>
               </DialogTrigger>
-              <DialogContent className="bg-slate-900 border-slate-700 max-w-md">
+              <DialogContent className="bg-white/95 backdrop-blur-xl border-white/20 shadow-2xl max-w-md rounded-2xl">
                 <DialogHeader>
-                  <DialogTitle className="text-white text-xl">Brand Onboarding</DialogTitle>
+                  <DialogTitle className="text-slate-800 text-2xl font-bold bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
+                    Brand Onboarding
+                  </DialogTitle>
                 </DialogHeader>
-                <div className="space-y-4">
-                  <div>
-                    <Label htmlFor="company" className="text-white">Company Name</Label>
-                    <Input id="company" className="bg-slate-800 border-slate-600 text-white" />
+                <div className="space-y-6 p-2">
+                  <div className="space-y-2">
+                    <Label htmlFor="company" className="text-slate-700 font-medium text-sm">Company Name</Label>
+                    <Input 
+                      id="company" 
+                      className="bg-white/80 border-slate-200 text-slate-800 focus:border-blue-400 focus:ring-2 focus:ring-blue-100 rounded-xl h-12 px-4 transition-all duration-200 placeholder:text-slate-400" 
+                      placeholder="Enter your company name"
+                    />
                   </div>
-                  <div>
-                    <Label htmlFor="industry" className="text-white">Industry</Label>
+                  <div className="space-y-2">
+                    <Label htmlFor="industry" className="text-slate-700 font-medium text-sm">Industry</Label>
                     <Select>
-                      <SelectTrigger className="bg-slate-800 border-slate-600 text-white">
+                      <SelectTrigger className="bg-white/80 border-slate-200 text-slate-800 focus:border-blue-400 focus:ring-2 focus:ring-blue-100 rounded-xl h-12 px-4">
                         <SelectValue placeholder="Select your industry" />
                       </SelectTrigger>
-                      <SelectContent className="bg-slate-800 border-slate-600">
-                        <SelectItem value="fashion">Fashion & Beauty</SelectItem>
-                        <SelectItem value="tech">Technology</SelectItem>
-                        <SelectItem value="food">Food & Beverage</SelectItem>
-                        <SelectItem value="fitness">Health & Fitness</SelectItem>
-                        <SelectItem value="travel">Travel & Lifestyle</SelectItem>
+                      <SelectContent className="bg-white/95 backdrop-blur-xl border-slate-200 rounded-xl shadow-xl">
+                        <SelectItem value="fashion" className="hover:bg-blue-50 rounded-lg">Fashion & Beauty</SelectItem>
+                        <SelectItem value="tech" className="hover:bg-blue-50 rounded-lg">Technology</SelectItem>
+                        <SelectItem value="food" className="hover:bg-blue-50 rounded-lg">Food & Beverage</SelectItem>
+                        <SelectItem value="fitness" className="hover:bg-blue-50 rounded-lg">Health & Fitness</SelectItem>
+                        <SelectItem value="travel" className="hover:bg-blue-50 rounded-lg">Travel & Lifestyle</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
-                  <div>
-                    <Label htmlFor="budget" className="text-white">Monthly Budget</Label>
+                  <div className="space-y-2">
+                    <Label htmlFor="budget" className="text-slate-700 font-medium text-sm">Monthly Budget</Label>
                     <Select>
-                      <SelectTrigger className="bg-slate-800 border-slate-600 text-white">
+                      <SelectTrigger className="bg-white/80 border-slate-200 text-slate-800 focus:border-blue-400 focus:ring-2 focus:ring-blue-100 rounded-xl h-12 px-4">
                         <SelectValue placeholder="Select budget range" />
                       </SelectTrigger>
-                      <SelectContent className="bg-slate-800 border-slate-600">
-                        <SelectItem value="5k">$5,000 - $10,000</SelectItem>
-                        <SelectItem value="10k">$10,000 - $25,000</SelectItem>
-                        <SelectItem value="25k">$25,000 - $50,000</SelectItem>
-                        <SelectItem value="50k">$50,000+</SelectItem>
+                      <SelectContent className="bg-white/95 backdrop-blur-xl border-slate-200 rounded-xl shadow-xl">
+                        <SelectItem value="5k" className="hover:bg-blue-50 rounded-lg">$5,000 - $10,000</SelectItem>
+                        <SelectItem value="10k" className="hover:bg-blue-50 rounded-lg">$10,000 - $25,000</SelectItem>
+                        <SelectItem value="25k" className="hover:bg-blue-50 rounded-lg">$25,000 - $50,000</SelectItem>
+                        <SelectItem value="50k" className="hover:bg-blue-50 rounded-lg">$50,000+</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
-                  <div>
-                    <Label htmlFor="email" className="text-white">Work Email</Label>
-                    <Input id="email" type="email" className="bg-slate-800 border-slate-600 text-white" />
+                  <div className="space-y-2">
+                    <Label htmlFor="email" className="text-slate-700 font-medium text-sm">Work Email</Label>
+                    <Input 
+                      id="email" 
+                      type="email" 
+                      className="bg-white/80 border-slate-200 text-slate-800 focus:border-blue-400 focus:ring-2 focus:ring-blue-100 rounded-xl h-12 px-4 transition-all duration-200 placeholder:text-slate-400" 
+                      placeholder="your@company.com"
+                    />
                   </div>
-                  <Button className="w-full bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600">
+                  <Button className="w-full bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white h-12 rounded-xl font-semibold shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-200">
                     Get Free Strategy Call
                   </Button>
                 </div>
@@ -117,49 +129,59 @@ const Hero = () => {
                   <span className="relative z-10">Join as Influencer</span>
                 </Button>
               </DialogTrigger>
-              <DialogContent className="bg-slate-900 border-slate-700 max-w-md">
+              <DialogContent className="bg-white/95 backdrop-blur-xl border-white/20 shadow-2xl max-w-md rounded-2xl">
                 <DialogHeader>
-                  <DialogTitle className="text-white text-xl">Influencer Registration</DialogTitle>
+                  <DialogTitle className="text-slate-800 text-2xl font-bold bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
+                    Influencer Registration
+                  </DialogTitle>
                 </DialogHeader>
-                <div className="space-y-4">
-                  <div>
-                    <Label htmlFor="name" className="text-white">Full Name</Label>
-                    <Input id="name" className="bg-slate-800 border-slate-600 text-white" />
+                <div className="space-y-6 p-2">
+                  <div className="space-y-2">
+                    <Label htmlFor="name" className="text-slate-700 font-medium text-sm">Full Name</Label>
+                    <Input 
+                      id="name" 
+                      className="bg-white/80 border-slate-200 text-slate-800 focus:border-blue-400 focus:ring-2 focus:ring-blue-100 rounded-xl h-12 px-4 transition-all duration-200 placeholder:text-slate-400" 
+                      placeholder="Enter your full name"
+                    />
                   </div>
-                  <div>
-                    <Label htmlFor="niche" className="text-white">Content Niche</Label>
+                  <div className="space-y-2">
+                    <Label htmlFor="niche" className="text-slate-700 font-medium text-sm">Content Niche</Label>
                     <Select>
-                      <SelectTrigger className="bg-slate-800 border-slate-600 text-white">
+                      <SelectTrigger className="bg-white/80 border-slate-200 text-slate-800 focus:border-blue-400 focus:ring-2 focus:ring-blue-100 rounded-xl h-12 px-4">
                         <SelectValue placeholder="Select your niche" />
                       </SelectTrigger>
-                      <SelectContent className="bg-slate-800 border-slate-600">
-                        <SelectItem value="lifestyle">Lifestyle</SelectItem>
-                        <SelectItem value="fitness">Fitness</SelectItem>
-                        <SelectItem value="beauty">Beauty</SelectItem>
-                        <SelectItem value="tech">Technology</SelectItem>
-                        <SelectItem value="travel">Travel</SelectItem>
+                      <SelectContent className="bg-white/95 backdrop-blur-xl border-slate-200 rounded-xl shadow-xl">
+                        <SelectItem value="lifestyle" className="hover:bg-blue-50 rounded-lg">Lifestyle</SelectItem>
+                        <SelectItem value="fitness" className="hover:bg-blue-50 rounded-lg">Fitness</SelectItem>
+                        <SelectItem value="beauty" className="hover:bg-blue-50 rounded-lg">Beauty</SelectItem>
+                        <SelectItem value="tech" className="hover:bg-blue-50 rounded-lg">Technology</SelectItem>
+                        <SelectItem value="travel" className="hover:bg-blue-50 rounded-lg">Travel</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
-                  <div>
-                    <Label htmlFor="followers" className="text-white">Follower Count</Label>
+                  <div className="space-y-2">
+                    <Label htmlFor="followers" className="text-slate-700 font-medium text-sm">Follower Count</Label>
                     <Select>
-                      <SelectTrigger className="bg-slate-800 border-slate-600 text-white">
+                      <SelectTrigger className="bg-white/80 border-slate-200 text-slate-800 focus:border-blue-400 focus:ring-2 focus:ring-blue-100 rounded-xl h-12 px-4">
                         <SelectValue placeholder="Select range" />
                       </SelectTrigger>
-                      <SelectContent className="bg-slate-800 border-slate-600">
-                        <SelectItem value="1k">1K - 10K</SelectItem>
-                        <SelectItem value="10k">10K - 100K</SelectItem>
-                        <SelectItem value="100k">100K - 1M</SelectItem>
-                        <SelectItem value="1m">1M+</SelectItem>
+                      <SelectContent className="bg-white/95 backdrop-blur-xl border-slate-200 rounded-xl shadow-xl">
+                        <SelectItem value="1k" className="hover:bg-blue-50 rounded-lg">1K - 10K</SelectItem>
+                        <SelectItem value="10k" className="hover:bg-blue-50 rounded-lg">10K - 100K</SelectItem>
+                        <SelectItem value="100k" className="hover:bg-blue-50 rounded-lg">100K - 1M</SelectItem>
+                        <SelectItem value="1m" className="hover:bg-blue-50 rounded-lg">1M+</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
-                  <div>
-                    <Label htmlFor="instagram" className="text-white">Instagram Handle</Label>
-                    <Input id="instagram" placeholder="@yourusername" className="bg-slate-800 border-slate-600 text-white" />
+                  <div className="space-y-2">
+                    <Label htmlFor="instagram" className="text-slate-700 font-medium text-sm">Instagram Handle</Label>
+                    <Input 
+                      id="instagram" 
+                      placeholder="@yourusername" 
+                      className="bg-white/80 border-slate-200 text-slate-800 focus:border-blue-400 focus:ring-2 focus:ring-blue-100 rounded-xl h-12 px-4 transition-all duration-200 placeholder:text-slate-400" 
+                    />
                   </div>
-                  <Button className="w-full bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600">
+                  <Button className="w-full bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white h-12 rounded-xl font-semibold shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-200">
                     Apply to Network
                   </Button>
                 </div>
