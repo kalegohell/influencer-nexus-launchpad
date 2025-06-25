@@ -26,7 +26,7 @@ const Analytics = () => {
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
             Data-Driven Results You Can
-            <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
               {" "}Track & Trust
             </span>
           </h2>
@@ -59,25 +59,25 @@ const Analytics = () => {
                   <Area 
                     type="monotone" 
                     dataKey="engagement" 
-                    stroke="#8B5CF6" 
+                    stroke="#3B82F6" 
                     fill="url(#engagementGradient)" 
                     strokeWidth={2}
                   />
                   <Area 
                     type="monotone" 
                     dataKey="reach" 
-                    stroke="#EC4899" 
+                    stroke="#06B6D4" 
                     fill="url(#reachGradient)" 
                     strokeWidth={2}
                   />
                   <defs>
                     <linearGradient id="engagementGradient" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="#8B5CF6" stopOpacity={0.3}/>
-                      <stop offset="95%" stopColor="#8B5CF6" stopOpacity={0.1}/>
+                      <stop offset="5%" stopColor="#3B82F6" stopOpacity={0.3}/>
+                      <stop offset="95%" stopColor="#3B82F6" stopOpacity={0.1}/>
                     </linearGradient>
                     <linearGradient id="reachGradient" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="#EC4899" stopOpacity={0.3}/>
-                      <stop offset="95%" stopColor="#EC4899" stopOpacity={0.1}/>
+                      <stop offset="5%" stopColor="#06B6D4" stopOpacity={0.3}/>
+                      <stop offset="95%" stopColor="#06B6D4" stopOpacity={0.1}/>
                     </linearGradient>
                   </defs>
                 </AreaChart>
@@ -107,8 +107,8 @@ const Analytics = () => {
                   <Bar dataKey="roi" fill="url(#roiGradient)" radius={[4, 4, 0, 0]} />
                   <defs>
                     <linearGradient id="roiGradient" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="#10B981" stopOpacity={0.8}/>
-                      <stop offset="95%" stopColor="#059669" stopOpacity={0.8}/>
+                      <stop offset="5%" stopColor="#06B6D4" stopOpacity={0.8}/>
+                      <stop offset="95%" stopColor="#0891B2" stopOpacity={0.8}/>
                     </linearGradient>
                   </defs>
                 </BarChart>
@@ -119,25 +119,25 @@ const Analytics = () => {
 
         {/* Key Metrics */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-          <Card className="bg-gradient-to-br from-purple-500/20 to-pink-500/20 backdrop-blur-md border-white/10">
+          <Card className="bg-gradient-to-br from-blue-500/20 to-cyan-500/20 backdrop-blur-md border-white/10">
             <CardContent className="p-6 text-center">
               <div className="text-3xl font-bold text-white mb-2">12.4x</div>
               <div className="text-white/80">Average ROI</div>
             </CardContent>
           </Card>
-          <Card className="bg-gradient-to-br from-blue-500/20 to-cyan-500/20 backdrop-blur-md border-white/10">
+          <Card className="bg-gradient-to-br from-slate-500/20 to-gray-500/20 backdrop-blur-md border-white/10">
             <CardContent className="p-6 text-center">
               <div className="text-3xl font-bold text-white mb-2">89%</div>
               <div className="text-white/80">Campaign Success Rate</div>
             </CardContent>
           </Card>
-          <Card className="bg-gradient-to-br from-green-500/20 to-emerald-500/20 backdrop-blur-md border-white/10">
+          <Card className="bg-gradient-to-br from-cyan-500/20 to-blue-500/20 backdrop-blur-md border-white/10">
             <CardContent className="p-6 text-center">
               <div className="text-3xl font-bold text-white mb-2">3.2M</div>
               <div className="text-white/80">Total Reach</div>
             </CardContent>
           </Card>
-          <Card className="bg-gradient-to-br from-orange-500/20 to-red-500/20 backdrop-blur-md border-white/10">
+          <Card className="bg-gradient-to-br from-gray-500/20 to-slate-500/20 backdrop-blur-md border-white/10">
             <CardContent className="p-6 text-center">
               <div className="text-3xl font-bold text-white mb-2">24h</div>
               <div className="text-white/80">Campaign Launch Time</div>

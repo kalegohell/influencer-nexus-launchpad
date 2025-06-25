@@ -50,7 +50,7 @@ const Features = () => {
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
             Why Leading Brands Choose
-            <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
               {" "}InfluenceX
             </span>
           </h2>
@@ -65,12 +65,12 @@ const Features = () => {
             <Card key={index} className="bg-white/5 backdrop-blur-md border-white/10 hover:bg-white/10 transition-all duration-300 group">
               <CardHeader>
                 <div className="flex items-center space-x-4">
-                  <div className="text-purple-400 group-hover:text-pink-400 transition-colors">
+                  <div className="text-blue-400 group-hover:text-cyan-400 transition-colors">
                     {feature.icon}
                   </div>
                   <div>
                     <CardTitle className="text-white text-xl">{feature.title}</CardTitle>
-                    <div className="text-sm text-purple-400 font-semibold">{feature.advantage}</div>
+                    <div className="text-sm text-blue-400 font-semibold">{feature.advantage}</div>
                   </div>
                 </div>
               </CardHeader>

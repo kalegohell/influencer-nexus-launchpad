@@ -18,7 +18,7 @@ const Hero = () => {
           {/* Attention - Eye-catching headline */}
           <h1 className="text-5xl md:text-7xl font-bold text-white mb-8 leading-tight">
             Scale Your Brand with
-            <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
               {" "}AI-Powered{" "}
             </span>
             Influencer Marketing
@@ -36,7 +36,7 @@ const Hero = () => {
               <DialogTrigger asChild>
                 <Button 
                   size="lg" 
-                  className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white px-8 py-4 text-lg font-semibold rounded-full transform hover:scale-105 transition-all duration-200"
+                  className="bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white px-8 py-4 text-lg font-semibold rounded-full transform hover:scale-105 transition-all duration-200"
                 >
                   <TrendingUp className="mr-2 w-5 h-5" />
                   Start as Brand
@@ -84,7 +84,7 @@ const Hero = () => {
                     <Label htmlFor="email" className="text-white">Work Email</Label>
                     <Input id="email" type="email" className="bg-slate-800 border-slate-600 text-white" />
                   </div>
-                  <Button className="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600">
+                  <Button className="w-full bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600">
                     Get Free Strategy Call
                   </Button>
                 </div>
@@ -144,7 +144,7 @@ const Hero = () => {
                     <Label htmlFor="instagram" className="text-white">Instagram Handle</Label>
                     <Input id="instagram" placeholder="@yourusername" className="bg-slate-800 border-slate-600 text-white" />
                   </div>
-                  <Button className="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600">
+                  <Button className="w-full bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600">
                     Apply to Network
                   </Button>
                 </div>

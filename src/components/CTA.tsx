@@ -10,13 +10,13 @@ const CTA = () => {
   const [ctaDialogOpen, setCTADialogOpen] = useState(false);
 
   return (
-    <section id="pricing" className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-purple-600/20 to-pink-600/20">
+    <section id="pricing" className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-blue-600/20 to-cyan-600/20">
       <div className="max-w-4xl mx-auto text-center">
         {/* Action - Final conversion push */}
         <div className="mb-12">
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
             Ready to Scale Your Brand with
-            <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
               {" "}Proven Results?
             </span>
           </h2>
@@ -29,8 +29,8 @@ const CTA = () => {
         {/* Urgency and scarcity */}
         <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-xl p-8 mb-12">
           <div className="flex items-center justify-center space-x-2 mb-4">
-            <ArrowUp className="w-5 h-5 text-green-400" />
-            <span className="text-green-400 font-semibold">Limited Time Offer</span>
+            <ArrowUp className="w-5 h-5 text-blue-400" />
+            <span className="text-blue-400 font-semibold">Limited Time Offer</span>
           </div>
           <h3 className="text-2xl font-bold text-white mb-4">
             Get Your First Campaign Strategy Session FREE
@@ -43,7 +43,7 @@ const CTA = () => {
             <DialogTrigger asChild>
               <Button 
                 size="lg" 
-                className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white px-12 py-6 text-xl font-bold rounded-full transform hover:scale-105 transition-all duration-200 mb-4"
+                className="bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white px-12 py-6 text-xl font-bold rounded-full transform hover:scale-105 transition-all duration-200 mb-4"
               >
                 <TrendingUp className="mr-3 w-6 h-6" />
                 Claim Your Free Strategy Session
@@ -70,7 +70,7 @@ const CTA = () => {
                   <Label htmlFor="current-budget" className="text-white">Current Monthly Marketing Budget</Label>
                   <Input id="current-budget" placeholder="$10,000" className="bg-slate-800 border-slate-600 text-white" />
                 </div>
-                <Button className="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600">
+                <Button className="w-full bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600">
                   Schedule My Free Session
                 </Button>
                 <p className="text-xs text-white/60 text-center">

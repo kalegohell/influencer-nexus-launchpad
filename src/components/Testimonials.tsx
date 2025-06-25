@@ -42,7 +42,7 @@ const Testimonials = () => {
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
             Trusted by Marketing Leaders
-            <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
               {" "}Worldwide
             </span>
           </h2>
@@ -59,7 +59,7 @@ const Testimonials = () => {
                   "{testimonial.content}"
                 </blockquote>
                 <div className="flex items-center space-x-4">
-                  <Avatar className="w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-500">
+                  <Avatar className="w-12 h-12 bg-gradient-to-r from-blue-500 to-cyan-500">
                     <AvatarFallback className="text-white font-semibold">
                       {testimonial.avatar}
                     </AvatarFallback>
@@ -67,7 +67,7 @@ const Testimonials = () => {
                   <div>
                     <div className="text-white font-semibold">{testimonial.name}</div>
                     <div className="text-white/60">{testimonial.role}</div>
-                    <div className="text-purple-400 text-sm">{testimonial.company}</div>
+                    <div className="text-blue-400 text-sm">{testimonial.company}</div>
                   </div>
                 </div>
               </CardContent>
@@ -79,19 +79,19 @@ const Testimonials = () => {
         <div className="mt-16 text-center">
           <div className="flex flex-wrap justify-center items-center gap-8 text-white/60">
             <div className="flex items-center space-x-2">
-              <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+              <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
               <span>SOC 2 Type II Certified</span>
             </div>
             <div className="flex items-center space-x-2">
-              <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+              <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
               <span>GDPR Compliant</span>
             </div>
             <div className="flex items-center space-x-2">
-              <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+              <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
               <span>99.9% Uptime SLA</span>
             </div>
             <div className="flex items-center space-x-2">
-              <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+              <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
               <span>24/7 Support</span>
             </div>
           </div>
