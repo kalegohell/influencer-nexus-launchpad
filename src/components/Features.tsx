@@ -43,6 +43,13 @@ const Features = () => {
     }
   ];
 
+  const pakistaniBrands = [
+    "Engro", "Fauji Group", "Lucky Cement", "Habib Bank", "MCB Bank", 
+    "Unilever Pakistan", "Nestle Pakistan", "K&N's", "Gul Ahmed", 
+    "Packages Limited", "Pakistan State Oil", "Jazz", "Telenor Pakistan",
+    "Daraz", "Careem", "Foodpanda", "Sana Safinaz", "Khaadi"
+  ];
+
   return (
     <section id="features" className="py-12 md:py-20 px-4 sm:px-6 lg:px-8 bg-white">
       <div className="max-w-7xl mx-auto">
@@ -83,15 +90,30 @@ const Features = () => {
           ))}
         </div>
 
-        {/* Social proof */}
+        {/* Social proof with moving Pakistani brands */}
         <div className="mt-16 md:mt-20 text-center">
-          <p className="text-gray-500 mb-6 md:mb-8">Trusted by industry leaders</p>
-          <div className="flex flex-wrap justify-center items-center gap-8 md:gap-12 opacity-60">
-            <div className="text-xl md:text-2xl font-bold text-gray-400">Nike</div>
-            <div className="text-xl md:text-2xl font-bold text-gray-400">Coca-Cola</div>
-            <div className="text-xl md:text-2xl font-bold text-gray-400">Samsung</div>
-            <div className="text-xl md:text-2xl font-bold text-gray-400">Spotify</div>
-            <div className="text-xl md:text-2xl font-bold text-gray-400">Airbnb</div>
+          <p className="text-gray-500 mb-6 md:mb-8">Trusted by leading Pakistani brands</p>
+          <div className="relative overflow-hidden bg-gradient-to-r from-transparent via-gray-50 to-transparent py-4 rounded-lg">
+            <div className="flex animate-scroll whitespace-nowrap">
+              {/* First set of brands */}
+              {pakistaniBrands.map((brand, index) => (
+                <div
+                  key={`first-${index}`}
+                  className="inline-flex items-center justify-center mx-8 text-xl md:text-2xl font-bold text-gray-400 hover:text-blue-600 transition-colors duration-300"
+                >
+                  {brand}
+                </div>
+              ))}
+              {/* Duplicate set for seamless loop */}
+              {pakistaniBrands.map((brand, index) => (
+                <div
+                  key={`second-${index}`}
+                  className="inline-flex items-center justify-center mx-8 text-xl md:text-2xl font-bold text-gray-400 hover:text-blue-600 transition-colors duration-300"
+                >
+                  {brand}
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
