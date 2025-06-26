@@ -5,11 +5,15 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { TrendingUp, Menu, X } from 'lucide-react';
+import { useToast } from '@/hooks/use-toast';
 
 const Navbar = () => {
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const { toast } = useToast();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -18,6 +22,32 @@ const Navbar = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  const handleLogin = (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    // Basic validation
+    if (!email || !password) {
+      toast({
+        title: "Error",
+        description: "Please fill in all fields",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    // Simulate authentication
+    toast({
+      title: "Login Successful",
+      description: "Redirecting to your dashboard...",
+    });
+
+    // Close dialog and redirect to dashboard
+    setIsLoginOpen(false);
+    setTimeout(() => {
+      window.location.href = '/dashboard';
+    }, 1000);
+  };
 
   return (
     <nav className={`fixed top-2 left-2 right-2 md:top-4 md:left-4 md:right-4 z-50 transition-all duration-500 ${
@@ -77,14 +107,17 @@ const Navbar = () => {
                     Brand Portal Login
                   </DialogTitle>
                 </DialogHeader>
-                <div className="space-y-4 mt-4">
+                <form onSubmit={handleLogin} className="space-y-4 mt-4">
                   <div className="space-y-2">
                     <Label htmlFor="email" className="text-gray-700 font-medium">Email</Label>
                     <Input 
                       id="email" 
                       type="email" 
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
                       className="bg-white border-gray-300 text-gray-900 focus:border-blue-500 focus:ring-blue-500/20 rounded-lg" 
                       placeholder="Enter your email"
+                      required
                     />
                   </div>
                   <div className="space-y-2">
@@ -92,14 +125,20 @@ const Navbar = () => {
                     <Input 
                       id="password" 
                       type="password" 
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
                       className="bg-white border-gray-300 text-gray-900 focus:border-blue-500 focus:ring-blue-500/20 rounded-lg" 
                       placeholder="Enter your password"
+                      required
                     />
                   </div>
-                  <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium py-2.5 transition-colors duration-200">
+                  <Button 
+                    type="submit"
+                    className="w-full bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium py-2.5 transition-colors duration-200"
+                  >
                     Access Dashboard
                   </Button>
-                </div>
+                </form>
               </DialogContent>
             </Dialog>
 
