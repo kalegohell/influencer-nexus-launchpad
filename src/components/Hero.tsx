@@ -5,106 +5,97 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { ArrowDown, TrendingUp, Users, Sparkles } from 'lucide-react';
+import { ArrowDown, TrendingUp, Users } from 'lucide-react';
 
 const Hero = () => {
   const [brandOnboardingOpen, setBrandOnboardingOpen] = useState(false);
   const [influencerOnboardingOpen, setInfluencerOnboardingOpen] = useState(false);
 
   return (
-    <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto">
+    <section className="pt-20 md:pt-28 pb-12 md:pb-20 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-6xl mx-auto">
         <div className="text-center">
-          {/* Attention - Eye-catching headline */}
-          <h1 className="text-5xl md:text-7xl font-bold text-white mb-8 leading-tight animate-fade-in">
+          {/* Headline */}
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-4 md:mb-6 leading-tight">
             Scale Your Brand with
-            <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-blue-600 to-blue-700 bg-clip-text text-transparent">
               {" "}AI-Powered{" "}
             </span>
             Influencer Marketing
           </h1>
           
-          {/* Audience - Clear value proposition */}
-          <p className="text-xl md:text-2xl text-white/80 mb-12 max-w-4xl mx-auto leading-relaxed animate-fade-in" style={{ animationDelay: '0.2s' }}>
+          {/* Subheadline */}
+          <p className="text-lg sm:text-xl md:text-2xl text-gray-600 mb-8 md:mb-12 max-w-4xl mx-auto leading-relaxed px-4">
             Connect with authentic influencers, track real-time performance, and achieve 10x ROI. 
-            Join 5,000+ brands already dominating their markets through data-driven influencer partnerships.
+            Join 5,000+ brands already dominating their markets.
           </p>
 
-          {/* Action - Primary CTAs with enhanced animations */}
-          <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-16 animate-fade-in" style={{ animationDelay: '0.4s' }}>
+          {/* CTA Buttons */}
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12 md:mb-16 px-4">
             <Dialog open={brandOnboardingOpen} onOpenChange={setBrandOnboardingOpen}>
               <DialogTrigger asChild>
                 <Button 
                   size="lg" 
-                  className="group relative bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white px-8 py-4 text-lg font-semibold rounded-full transform hover:scale-105 transition-all duration-300 shadow-lg shadow-blue-500/25 hover:shadow-blue-400/40 overflow-hidden"
+                  className="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white px-6 md:px-8 py-3 md:py-4 text-base md:text-lg font-semibold rounded-xl transition-all duration-200 shadow-lg hover:shadow-xl"
                 >
-                  {/* Animated background effect */}
-                  <div className="absolute inset-0 bg-gradient-to-r from-blue-400 to-cyan-400 opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
-                  
-                  {/* Shimmer effect */}
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
-                  
-                  {/* Floating particles effect */}
-                  <Sparkles className="absolute -top-1 -right-1 w-4 h-4 text-cyan-300 opacity-0 group-hover:opacity-100 animate-pulse transition-opacity duration-300" />
-                  
-                  <TrendingUp className="mr-2 w-5 h-5 relative z-10 group-hover:rotate-12 transition-transform duration-300" />
-                  <span className="relative z-10">Start as Brand</span>
+                  <TrendingUp className="mr-2 w-5 h-5" />
+                  Start as Brand
                 </Button>
               </DialogTrigger>
-              <DialogContent className="bg-white/95 backdrop-blur-xl border-white/20 shadow-2xl max-w-md rounded-2xl">
+              <DialogContent className="bg-white border border-gray-200 shadow-2xl max-w-md mx-4 rounded-2xl">
                 <DialogHeader>
-                  <DialogTitle className="text-slate-800 text-2xl font-bold bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
+                  <DialogTitle className="text-gray-900 text-xl md:text-2xl font-bold">
                     Brand Onboarding
                   </DialogTitle>
                 </DialogHeader>
-                <div className="space-y-6 p-2">
+                <div className="space-y-4 p-2">
                   <div className="space-y-2">
-                    <Label htmlFor="company" className="text-slate-700 font-medium text-sm">Company Name</Label>
+                    <Label htmlFor="company" className="text-gray-700 font-medium">Company Name</Label>
                     <Input 
                       id="company" 
-                      className="bg-white/80 border-slate-200 text-slate-800 focus:border-blue-400 focus:ring-2 focus:ring-blue-100 rounded-xl h-12 px-4 transition-all duration-200 placeholder:text-slate-400" 
+                      className="bg-white border-gray-300 text-gray-900 focus:border-blue-500 focus:ring-blue-500/20 rounded-lg h-11" 
                       placeholder="Enter your company name"
                     />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="industry" className="text-slate-700 font-medium text-sm">Industry</Label>
+                    <Label htmlFor="industry" className="text-gray-700 font-medium">Industry</Label>
                     <Select>
-                      <SelectTrigger className="bg-white/80 border-slate-200 text-slate-800 focus:border-blue-400 focus:ring-2 focus:ring-blue-100 rounded-xl h-12 px-4">
+                      <SelectTrigger className="bg-white border-gray-300 text-gray-900 focus:border-blue-500 focus:ring-blue-500/20 rounded-lg h-11">
                         <SelectValue placeholder="Select your industry" />
                       </SelectTrigger>
-                      <SelectContent className="bg-white/95 backdrop-blur-xl border-slate-200 rounded-xl shadow-xl">
-                        <SelectItem value="fashion" className="hover:bg-blue-50 rounded-lg">Fashion & Beauty</SelectItem>
-                        <SelectItem value="tech" className="hover:bg-blue-50 rounded-lg">Technology</SelectItem>
-                        <SelectItem value="food" className="hover:bg-blue-50 rounded-lg">Food & Beverage</SelectItem>
-                        <SelectItem value="fitness" className="hover:bg-blue-50 rounded-lg">Health & Fitness</SelectItem>
-                        <SelectItem value="travel" className="hover:bg-blue-50 rounded-lg">Travel & Lifestyle</SelectItem>
+                      <SelectContent className="bg-white border-gray-200 rounded-lg shadow-lg">
+                        <SelectItem value="fashion">Fashion & Beauty</SelectItem>
+                        <SelectItem value="tech">Technology</SelectItem>
+                        <SelectItem value="food">Food & Beverage</SelectItem>
+                        <SelectItem value="fitness">Health & Fitness</SelectItem>
+                        <SelectItem value="travel">Travel & Lifestyle</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="budget" className="text-slate-700 font-medium text-sm">Monthly Budget</Label>
+                    <Label htmlFor="budget" className="text-gray-700 font-medium">Monthly Budget</Label>
                     <Select>
-                      <SelectTrigger className="bg-white/80 border-slate-200 text-slate-800 focus:border-blue-400 focus:ring-2 focus:ring-blue-100 rounded-xl h-12 px-4">
+                      <SelectTrigger className="bg-white border-gray-300 text-gray-900 focus:border-blue-500 focus:ring-blue-500/20 rounded-lg h-11">
                         <SelectValue placeholder="Select budget range" />
                       </SelectTrigger>
-                      <SelectContent className="bg-white/95 backdrop-blur-xl border-slate-200 rounded-xl shadow-xl">
-                        <SelectItem value="5k" className="hover:bg-blue-50 rounded-lg">$5,000 - $10,000</SelectItem>
-                        <SelectItem value="10k" className="hover:bg-blue-50 rounded-lg">$10,000 - $25,000</SelectItem>
-                        <SelectItem value="25k" className="hover:bg-blue-50 rounded-lg">$25,000 - $50,000</SelectItem>
-                        <SelectItem value="50k" className="hover:bg-blue-50 rounded-lg">$50,000+</SelectItem>
+                      <SelectContent className="bg-white border-gray-200 rounded-lg shadow-lg">
+                        <SelectItem value="5k">$5,000 - $10,000</SelectItem>
+                        <SelectItem value="10k">$10,000 - $25,000</SelectItem>
+                        <SelectItem value="25k">$25,000 - $50,000</SelectItem>
+                        <SelectItem value="50k">$50,000+</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="email" className="text-slate-700 font-medium text-sm">Work Email</Label>
+                    <Label htmlFor="email" className="text-gray-700 font-medium">Work Email</Label>
                     <Input 
                       id="email" 
                       type="email" 
-                      className="bg-white/80 border-slate-200 text-slate-800 focus:border-blue-400 focus:ring-2 focus:ring-blue-100 rounded-xl h-12 px-4 transition-all duration-200 placeholder:text-slate-400" 
+                      className="bg-white border-gray-300 text-gray-900 focus:border-blue-500 focus:ring-blue-500/20 rounded-lg h-11" 
                       placeholder="your@company.com"
                     />
                   </div>
-                  <Button className="w-full bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white h-12 rounded-xl font-semibold shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-200">
+                  <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white h-11 rounded-lg font-semibold transition-colors duration-200">
                     Get Free Strategy Call
                   </Button>
                 </div>
@@ -116,72 +107,65 @@ const Hero = () => {
                 <Button 
                   size="lg" 
                   variant="outline" 
-                  className="group relative bg-white/10 border-white/20 text-white hover:bg-white/20 px-8 py-4 text-lg font-semibold rounded-full transform hover:scale-105 transition-all duration-300 backdrop-blur-sm shadow-lg shadow-white/5 hover:shadow-white/10 overflow-hidden"
+                  className="w-full sm:w-auto bg-white border-gray-300 text-gray-700 hover:bg-gray-50 hover:border-gray-400 px-6 md:px-8 py-3 md:py-4 text-base md:text-lg font-semibold rounded-xl transition-all duration-200"
                 >
-                  {/* Animated border glow */}
-                  <div className="absolute inset-0 rounded-full border-2 border-transparent bg-gradient-to-r from-blue-400 via-transparent to-cyan-400 opacity-0 group-hover:opacity-50 transition-opacity duration-300 animate-pulse"></div>
-                  
-                  {/* Ripple effect */}
-                  <div className="absolute inset-0 rounded-full bg-white/5 scale-75 opacity-0 group-hover:scale-100 group-hover:opacity-100 transition-all duration-500"></div>
-                  
-                  {/* Icon animation */}
-                  <Users className="mr-2 w-5 h-5 relative z-10 group-hover:scale-110 transition-transform duration-300" />
-                  <span className="relative z-10">Join as Influencer</span>
+                  <Users className="mr-2 w-5 h-5" />
+                  Join as Influencer
                 </Button>
               </DialogTrigger>
-              <DialogContent className="bg-white/95 backdrop-blur-xl border-white/20 shadow-2xl max-w-md rounded-2xl">
+              <DialogContent className="bg-white border border-gray-200 shadow-2xl max-w-md mx-4 rounded-2xl">
                 <DialogHeader>
-                  <DialogTitle className="text-slate-800 text-2xl font-bold bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
+                  <DialogTitle className="text-gray-900 text-xl md:text-2xl font-bold">
                     Influencer Registration
                   </DialogTitle>
                 </DialogHeader>
-                <div className="space-y-6 p-2">
+                <div className="space-y-4 p-2">
                   <div className="space-y-2">
-                    <Label htmlFor="name" className="text-slate-700 font-medium text-sm">Full Name</Label>
+                    <Label htmlFor="name" className="text-gray-700 font-medium">Full Name</Label>
                     <Input 
                       id="name" 
-                      className="bg-white/80 border-slate-200 text-slate-800 focus:border-blue-400 focus:ring-2 focus:ring-blue-100 rounded-xl h-12 px-4 transition-all duration-200 placeholder:text-slate-400" 
+                      className="bg-white border-gray-300 text-gray-900 focus:border-blue-500 focus:ring-blue-500/20 rounded-lg h-11" 
                       placeholder="Enter your full name"
                     />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="niche" className="text-slate-700 font-medium text-sm">Content Niche</Label>
+                    <Label htmlFor="niche" className="text-gray-700 font-medium">Content Niche</Label>
                     <Select>
-                      <SelectTrigger className="bg-white/80 border-slate-200 text-slate-800 focus:border-blue-400 focus:ring-2 focus:ring-blue-100 rounded-xl h-12 px-4">
+                      <SelectTrigger className="bg-white border-gray-300 text-gray-900 focus:border-blue-500 focus:ring-blue-500/20 rounded-lg h-11">
                         <SelectValue placeholder="Select your niche" />
                       </SelectTrigger>
-                      <SelectContent className="bg-white/95 backdrop-blur-xl border-slate-200 rounded-xl shadow-xl">
-                        <SelectItem value="lifestyle" className="hover:bg-blue-50 rounded-lg">Lifestyle</SelectItem>
-                        <SelectItem value="fitness" className="hover:bg-blue-50 rounded-lg">Fitness</SelectItem>
-                        <SelectItem value="beauty" className="hover:bg-blue-50 rounded-lg">Beauty</SelectItem>
-                        <SelectItem value="tech" className="hover:bg-blue-50 rounded-lg">Technology</SelectItem>
-                        <SelectItem value="travel" className="hover:bg-blue-50 rounded-lg">Travel</SelectItem>
+                      <SelectContent className="bg-white border-gray-200 rounded-lg shadow-lg">
+                        <SelectItem value="lifestyle">Lifestyle</SelectItem>
+                        <SelectItem value="fitness">Fitness</SelectItem>
+                        <SelectItem value="beauty">Beauty</SelectItem>
+                        <SelectItem value="tech">Technology</SelectItem>
+                        <SelectItem value="travel">Travel</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="followers" className="text-slate-700 font-medium text-sm">Follower Count</Label>
+                    <Label htmlFor="followers" className="text-gray-700 font-medium">Follower Count</Label>
                     <Select>
-                      <SelectTrigger className="bg-white/80 border-slate-200 text-slate-800 focus:border-blue-400 focus:ring-2 focus:ring-blue-100 rounded-xl h-12 px-4">
+                      <SelectTrigger className="bg-white border-gray-300 text-gray-900 focus:border-blue-500 focus:ring-blue-500/20 rounded-lg h-11">
                         <SelectValue placeholder="Select range" />
                       </SelectTrigger>
-                      <SelectContent className="bg-white/95 backdrop-blur-xl border-slate-200 rounded-xl shadow-xl">
-                        <SelectItem value="1k" className="hover:bg-blue-50 rounded-lg">1K - 10K</SelectItem>
-                        <SelectItem value="10k" className="hover:bg-blue-50 rounded-lg">10K - 100K</SelectItem>
-                        <SelectItem value="100k" className="hover:bg-blue-50 rounded-lg">100K - 1M</SelectItem>
-                        <SelectItem value="1m" className="hover:bg-blue-50 rounded-lg">1M+</SelectItem>
+                      <SelectContent className="bg-white border-gray-200 rounded-lg shadow-lg">
+                        <SelectItem value="1k">1K - 10K</SelectItem>
+                        <SelectItem value="10k">10K - 100K</SelectItem>
+                        <SelectItem value="100k">100K - 1M</SelectItem>
+                        <SelectItem value="1m">1M+</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="instagram" className="text-slate-700 font-medium text-sm">Instagram Handle</Label>
+                    <Label htmlFor="instagram" className="text-gray-700 font-medium">Instagram Handle</Label>
                     <Input 
                       id="instagram" 
                       placeholder="@yourusername" 
-                      className="bg-white/80 border-slate-200 text-slate-800 focus:border-blue-400 focus:ring-2 focus:ring-blue-100 rounded-xl h-12 px-4 transition-all duration-200 placeholder:text-slate-400" 
+                      className="bg-white border-gray-300 text-gray-900 focus:border-blue-500 focus:ring-blue-500/20 rounded-lg h-11" 
                     />
                   </div>
-                  <Button className="w-full bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white h-12 rounded-xl font-semibold shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-200">
+                  <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white h-11 rounded-lg font-semibold transition-colors duration-200">
                     Apply to Network
                   </Button>
                 </div>
@@ -189,34 +173,24 @@ const Hero = () => {
             </Dialog>
           </div>
 
-          {/* Authority - Trust indicators with staggered animation */}
-          <div className="flex flex-wrap justify-center items-center gap-8 text-white/60 animate-fade-in" style={{ animationDelay: '0.6s' }}>
+          {/* Trust indicators */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 text-gray-600 mb-8 md:mb-12 max-w-4xl mx-auto">
             {[
               { value: "5,000+", label: "Active Brands" },
               { value: "50,000+", label: "Verified Influencers" },
               { value: "$100M+", label: "Campaign Revenue" },
               { value: "12x", label: "Average ROI" }
-            ].map((stat, index) => (
-              <div 
-                key={stat.label}
-                className="text-center group cursor-pointer transform hover:scale-105 transition-all duration-300"
-                style={{ animationDelay: `${0.7 + index * 0.1}s` }}
-              >
-                <div className="text-2xl font-bold text-white group-hover:bg-gradient-to-r group-hover:from-blue-400 group-hover:to-cyan-400 group-hover:bg-clip-text group-hover:text-transparent transition-all duration-300">
-                  {stat.value}
-                </div>
-                <div className="text-sm">{stat.label}</div>
+            ].map((stat) => (
+              <div key={stat.label} className="text-center">
+                <div className="text-xl md:text-2xl font-bold text-gray-900">{stat.value}</div>
+                <div className="text-sm md:text-base">{stat.label}</div>
               </div>
             ))}
           </div>
 
-          {/* Scroll indicator with enhanced animation */}
-          <div className="flex justify-center mt-16 animate-fade-in" style={{ animationDelay: '1s' }}>
-            <div className="relative">
-              <ArrowDown className="w-6 h-6 text-white/40 animate-bounce" />
-              {/* Pulsing ring around arrow */}
-              <div className="absolute inset-0 w-6 h-6 border border-white/20 rounded-full animate-ping"></div>
-            </div>
+          {/* Scroll indicator */}
+          <div className="flex justify-center">
+            <ArrowDown className="w-5 h-5 text-gray-400 animate-bounce" />
           </div>
         </div>
       </div>
