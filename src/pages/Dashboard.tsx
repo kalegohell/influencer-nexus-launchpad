@@ -9,10 +9,10 @@ const Dashboard = () => {
     <div className="min-h-screen bg-gray-50">
       <SidebarProvider>
         <div className="min-h-screen flex w-full">
+          <DashboardSidebar />
           <SidebarInset className="flex-1">
             <DashboardContent />
           </SidebarInset>
-          <DashboardSidebar />
         </div>
       </SidebarProvider>
     </div>
