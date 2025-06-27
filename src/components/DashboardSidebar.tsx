@@ -26,7 +26,7 @@ const menuItems = [
   {
     title: "Overview",
     icon: Home,
-    href: "#overview"
+    href: "/dashboard"
   },
   {
     title: "Analytics",
@@ -41,7 +41,7 @@ const menuItems = [
   {
     title: "Campaigns",
     icon: MessageSquare,
-    href: "#campaigns"
+    href: "/campaigns"
   },
   {
     title: "Reports",
