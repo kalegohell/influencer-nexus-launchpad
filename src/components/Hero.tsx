@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
@@ -6,10 +5,17 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { ArrowDown, TrendingUp, Users } from 'lucide-react';
+import { useCountUp } from '@/hooks/useCountUp';
 
 const Hero = () => {
   const [brandOnboardingOpen, setBrandOnboardingOpen] = useState(false);
   const [influencerOnboardingOpen, setInfluencerOnboardingOpen] = useState(false);
+
+  // Animated counters
+  const activeBrands = useCountUp(5000, 2000, '+');
+  const verifiedInfluencers = useCountUp(50000, 2500, '+');
+  const campaignRevenue = useCountUp(100, 2200, 'M+');
+  const averageROI = useCountUp(12, 1800, 'x');
 
   return (
     <section className="pt-20 md:pt-28 pb-12 md:pb-20 px-4 sm:px-6 lg:px-8">
@@ -175,17 +181,22 @@ const Hero = () => {
 
           {/* Trust indicators */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 text-gray-600 mb-8 md:mb-12 max-w-4xl mx-auto">
-            {[
-              { value: "5,000+", label: "Active Brands" },
-              { value: "50,000+", label: "Verified Influencers" },
-              { value: "$100M+", label: "Campaign Revenue" },
-              { value: "12x", label: "Average ROI" }
-            ].map((stat) => (
-              <div key={stat.label} className="text-center">
-                <div className="text-xl md:text-2xl font-bold text-gray-900">{stat.value}</div>
-                <div className="text-sm md:text-base">{stat.label}</div>
-              </div>
-            ))}
+            <div className="text-center">
+              <div className="text-xl md:text-2xl font-bold text-gray-900">{activeBrands}</div>
+              <div className="text-sm md:text-base">Active Brands</div>
+            </div>
+            <div className="text-center">
+              <div className="text-xl md:text-2xl font-bold text-gray-900">{verifiedInfluencers}</div>
+              <div className="text-sm md:text-base">Verified Influencers</div>
+            </div>
+            <div className="text-center">
+              <div className="text-xl md:text-2xl font-bold text-gray-900">${campaignRevenue}</div>
+              <div className="text-sm md:text-base">Campaign Revenue</div>
+            </div>
+            <div className="text-center">
+              <div className="text-xl md:text-2xl font-bold text-gray-900">{averageROI}</div>
+              <div className="text-sm md:text-base">Average ROI</div>
+            </div>
           </div>
 
           {/* Scroll indicator */}
