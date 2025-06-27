@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -6,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Calendar, Users, Eye, Heart, DollarSign, Target, TrendingUp, Plus } from "lucide-react";
 
 const Campaigns = () => {
+  
   const campaigns = [
     {
       id: 1,
@@ -102,17 +102,17 @@ const Campaigns = () => {
   const getStatusColor = (status: string) => {
     switch (status) {
       case 'Active':
-        return 'bg-green-100 text-green-800 border-green-200';
+        return 'bg-green-900 text-green-100 border-green-700';
       case 'Completed':
-        return 'bg-blue-100 text-blue-800 border-blue-200';
+        return 'bg-blue-900 text-blue-100 border-blue-700';
       case 'Planning':
-        return 'bg-yellow-100 text-yellow-800 border-yellow-200';
+        return 'bg-yellow-900 text-yellow-100 border-yellow-700';
       case 'Draft':
-        return 'bg-gray-100 text-gray-800 border-gray-200';
+        return 'bg-gray-700 text-gray-100 border-gray-600';
       case 'Paused':
-        return 'bg-red-100 text-red-800 border-red-200';
+        return 'bg-red-900 text-red-100 border-red-700';
       default:
-        return 'bg-gray-100 text-gray-800 border-gray-200';
+        return 'bg-gray-700 text-gray-100 border-gray-600';
     }
   };
 
@@ -120,13 +120,13 @@ const Campaigns = () => {
     switch (performance) {
       case 'High':
       case 'Excellent':
-        return 'text-green-600';
+        return 'text-green-400';
       case 'Medium':
-        return 'text-yellow-600';
+        return 'text-yellow-400';
       case 'Low':
-        return 'text-red-600';
+        return 'text-red-400';
       default:
-        return 'text-gray-600';
+        return 'text-gray-400';
     }
   };
 
@@ -146,16 +146,16 @@ const Campaigns = () => {
   };
 
   return (
-    <div className="p-8 bg-gray-50 min-h-screen">
+    <div className="p-8 bg-gray-900 min-h-screen">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="mb-8">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
             <div>
-              <h1 className="text-3xl font-bold text-gray-900 mb-2">
+              <h1 className="text-3xl font-bold text-white mb-2">
                 Campaigns
               </h1>
-              <p className="text-gray-600">
+              <p className="text-gray-400">
                 Manage and monitor all your influencer marketing campaigns
               </p>
             </div>
@@ -169,14 +169,14 @@ const Campaigns = () => {
         {/* Campaigns Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {campaigns.map((campaign) => (
-            <Card key={campaign.id} className="bg-white border-0 shadow-sm hover:shadow-md transition-shadow rounded-xl overflow-hidden">
+            <Card key={campaign.id} className="bg-black border border-gray-800 shadow-lg hover:shadow-xl transition-shadow rounded-xl overflow-hidden hover:border-gray-700">
               <CardHeader className="pb-4">
                 <div className="flex items-start justify-between">
                   <div className="flex-1">
-                    <CardTitle className="text-lg font-semibold text-gray-900 mb-2">
+                    <CardTitle className="text-lg font-semibold text-white mb-2">
                       {campaign.name}
                     </CardTitle>
-                    <CardDescription className="text-sm text-gray-600 line-clamp-2">
+                    <CardDescription className="text-sm text-gray-400 line-clamp-2">
                       {campaign.description}
                     </CardDescription>
                   </div>
@@ -188,13 +188,13 @@ const Campaigns = () => {
               
               <CardContent className="space-y-4">
                 {/* Budget Info */}
-                <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                <div className="flex items-center justify-between p-3 bg-gray-900 rounded-lg border border-gray-800">
                   <div className="flex items-center space-x-2">
-                    <DollarSign className="w-4 h-4 text-green-600" />
-                    <span className="text-sm font-medium text-gray-700">Budget</span>
+                    <DollarSign className="w-4 h-4 text-green-400" />
+                    <span className="text-sm font-medium text-gray-300">Budget</span>
                   </div>
                   <div className="text-right">
-                    <p className="text-sm font-semibold text-gray-900">
+                    <p className="text-sm font-semibold text-white">
                       {formatCurrency(campaign.spent)} / {formatCurrency(campaign.budget)}
                     </p>
                     <p className="text-xs text-gray-500">
@@ -206,40 +206,40 @@ const Campaigns = () => {
                 {/* Performance Metrics */}
                 <div className="grid grid-cols-2 gap-3">
                   <div className="flex items-center space-x-2">
-                    <Users className="w-4 h-4 text-blue-600" />
+                    <Users className="w-4 h-4 text-blue-400" />
                     <div>
-                      <p className="text-sm font-medium text-gray-900">{campaign.influencers}</p>
+                      <p className="text-sm font-medium text-white">{campaign.influencers}</p>
                       <p className="text-xs text-gray-500">Influencers</p>
                     </div>
                   </div>
                   
                   <div className="flex items-center space-x-2">
-                    <Eye className="w-4 h-4 text-purple-600" />
+                    <Eye className="w-4 h-4 text-purple-400" />
                     <div>
-                      <p className="text-sm font-medium text-gray-900">{formatNumber(campaign.reach)}</p>
+                      <p className="text-sm font-medium text-white">{formatNumber(campaign.reach)}</p>
                       <p className="text-xs text-gray-500">Reach</p>
                     </div>
                   </div>
                   
                   <div className="flex items-center space-x-2">
-                    <Heart className="w-4 h-4 text-pink-600" />
+                    <Heart className="w-4 h-4 text-pink-400" />
                     <div>
-                      <p className="text-sm font-medium text-gray-900">{formatNumber(campaign.likes)}</p>
+                      <p className="text-sm font-medium text-white">{formatNumber(campaign.likes)}</p>
                       <p className="text-xs text-gray-500">Likes</p>
                     </div>
                   </div>
                   
                   <div className="flex items-center space-x-2">
-                    <TrendingUp className="w-4 h-4 text-orange-600" />
+                    <TrendingUp className="w-4 h-4 text-orange-400" />
                     <div>
-                      <p className="text-sm font-medium text-gray-900">{formatNumber(campaign.engagement)}</p>
+                      <p className="text-sm font-medium text-white">{formatNumber(campaign.engagement)}</p>
                       <p className="text-xs text-gray-500">Engagement</p>
                     </div>
                   </div>
                 </div>
 
                 {/* Campaign Dates */}
-                <div className="flex items-center space-x-2 text-sm text-gray-600">
+                <div className="flex items-center space-x-2 text-sm text-gray-400">
                   <Calendar className="w-4 h-4" />
                   <span>
                     {new Date(campaign.startDate).toLocaleDateString()} - {new Date(campaign.endDate).toLocaleDateString()}
@@ -247,8 +247,8 @@ const Campaigns = () => {
                 </div>
 
                 {/* Performance Indicator */}
-                <div className="flex items-center justify-between pt-2 border-t border-gray-100">
-                  <span className="text-sm text-gray-600">Performance</span>
+                <div className="flex items-center justify-between pt-2 border-t border-gray-800">
+                  <span className="text-sm text-gray-400">Performance</span>
                   <span className={`text-sm font-medium ${getPerformanceColor(campaign.performance)}`}>
                     {campaign.performance}
                   </span>
@@ -256,10 +256,10 @@ const Campaigns = () => {
 
                 {/* Actions */}
                 <div className="flex space-x-2 pt-2">
-                  <Button variant="outline" size="sm" className="flex-1 text-xs">
+                  <Button variant="outline" size="sm" className="flex-1 text-xs bg-gray-900 border-gray-700 text-gray-300 hover:bg-gray-800 hover:text-white">
                     View Details
                   </Button>
-                  <Button variant="outline" size="sm" className="flex-1 text-xs">
+                  <Button variant="outline" size="sm" className="flex-1 text-xs bg-gray-900 border-gray-700 text-gray-300 hover:bg-gray-800 hover:text-white">
                     Edit
                   </Button>
                 </div>
