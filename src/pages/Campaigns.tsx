@@ -5,102 +5,92 @@ import { Badge } from "@/components/ui/badge";
 import { Calendar, Users, Eye, Heart, DollarSign, Target, TrendingUp, Plus } from "lucide-react";
 import { SidebarProvider, SidebarInset } from "@/components/ui/sidebar";
 import { DashboardSidebar } from "@/components/DashboardSidebar";
-
 const Campaigns = () => {
-  
-  const campaigns = [
-    {
-      id: 1,
-      name: "Summer Collection Launch",
-      description: "Promote our new summer fashion line across social media platforms",
-      status: "Active",
-      budget: 25000,
-      spent: 18500,
-      influencers: 8,
-      reach: 2400000,
-      engagement: 156000,
-      likes: 89000,
-      startDate: "2024-06-01",
-      endDate: "2024-07-15",
-      performance: "High"
-    },
-    {
-      id: 2,
-      name: "Brand Awareness Drive",
-      description: "Increase brand visibility among Gen Z audience",
-      status: "Completed",
-      budget: 15000,
-      spent: 14200,
-      influencers: 12,
-      reach: 1800000,
-      engagement: 124000,
-      likes: 67000,
-      startDate: "2024-05-01",
-      endDate: "2024-05-31",
-      performance: "Excellent"
-    },
-    {
-      id: 3,
-      name: "Product Review Series",
-      description: "Authentic product reviews from lifestyle influencers",
-      status: "Planning",
-      budget: 20000,
-      spent: 0,
-      influencers: 5,
-      reach: 0,
-      engagement: 0,
-      likes: 0,
-      startDate: "2024-07-01",
-      endDate: "2024-08-15",
-      performance: "Pending"
-    },
-    {
-      id: 4,
-      name: "Holiday Campaign",
-      description: "Festive season promotional campaign",
-      status: "Draft",
-      budget: 35000,
-      spent: 0,
-      influencers: 0,
-      reach: 0,
-      engagement: 0,
-      likes: 0,
-      startDate: "2024-12-01",
-      endDate: "2024-12-31",
-      performance: "Not Started"
-    },
-    {
-      id: 5,
-      name: "Fitness Challenge",
-      description: "30-day fitness challenge with health influencers",
-      status: "Active",
-      budget: 30000,
-      spent: 22000,
-      influencers: 6,
-      reach: 1900000,
-      engagement: 98000,
-      likes: 45000,
-      startDate: "2024-06-15",
-      endDate: "2024-07-31",
-      performance: "Medium"
-    },
-    {
-      id: 6,
-      name: "Tech Product Launch",
-      description: "Launch campaign for new smartphone accessories",
-      status: "Paused",
-      budget: 18000,
-      spent: 8500,
-      influencers: 4,
-      reach: 950000,
-      engagement: 42000,
-      likes: 28000,
-      startDate: "2024-05-15",
-      endDate: "2024-06-30",
-      performance: "Low"
-    }
-  ];
-
+  const campaigns = [{
+    id: 1,
+    name: "Summer Collection Launch",
+    description: "Promote our new summer fashion line across social media platforms",
+    status: "Active",
+    budget: 25000,
+    spent: 18500,
+    influencers: 8,
+    reach: 2400000,
+    engagement: 156000,
+    likes: 89000,
+    startDate: "2024-06-01",
+    endDate: "2024-07-15",
+    performance: "High"
+  }, {
+    id: 2,
+    name: "Brand Awareness Drive",
+    description: "Increase brand visibility among Gen Z audience",
+    status: "Completed",
+    budget: 15000,
+    spent: 14200,
+    influencers: 12,
+    reach: 1800000,
+    engagement: 124000,
+    likes: 67000,
+    startDate: "2024-05-01",
+    endDate: "2024-05-31",
+    performance: "Excellent"
+  }, {
+    id: 3,
+    name: "Product Review Series",
+    description: "Authentic product reviews from lifestyle influencers",
+    status: "Planning",
+    budget: 20000,
+    spent: 0,
+    influencers: 5,
+    reach: 0,
+    engagement: 0,
+    likes: 0,
+    startDate: "2024-07-01",
+    endDate: "2024-08-15",
+    performance: "Pending"
+  }, {
+    id: 4,
+    name: "Holiday Campaign",
+    description: "Festive season promotional campaign",
+    status: "Draft",
+    budget: 35000,
+    spent: 0,
+    influencers: 0,
+    reach: 0,
+    engagement: 0,
+    likes: 0,
+    startDate: "2024-12-01",
+    endDate: "2024-12-31",
+    performance: "Not Started"
+  }, {
+    id: 5,
+    name: "Fitness Challenge",
+    description: "30-day fitness challenge with health influencers",
+    status: "Active",
+    budget: 30000,
+    spent: 22000,
+    influencers: 6,
+    reach: 1900000,
+    engagement: 98000,
+    likes: 45000,
+    startDate: "2024-06-15",
+    endDate: "2024-07-31",
+    performance: "Medium"
+  }, {
+    id: 6,
+    name: "Tech Product Launch",
+    description: "Launch campaign for new smartphone accessories",
+    status: "Paused",
+    budget: 18000,
+    spent: 8500,
+    influencers: 4,
+    reach: 950000,
+    engagement: 42000,
+    likes: 28000,
+    startDate: "2024-05-15",
+    endDate: "2024-06-30",
+    performance: "Low"
+  }];
   const getStatusColor = (status: string) => {
     switch (status) {
       case 'Active':
@@ -117,7 +107,6 @@ const Campaigns = () => {
         return 'bg-gray-100 text-gray-800 border-gray-200';
     }
   };
-
   const getPerformanceColor = (performance: string) => {
     switch (performance) {
       case 'High':
@@ -131,24 +120,20 @@ const Campaigns = () => {
         return 'text-gray-600';
     }
   };
-
   const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat('en-US', {
       style: 'currency',
       currency: 'USD',
-      minimumFractionDigits: 0,
+      minimumFractionDigits: 0
     }).format(amount);
   };
-
   const formatNumber = (num: number) => {
     return new Intl.NumberFormat('en-US', {
       notation: 'compact',
-      maximumFractionDigits: 1,
+      maximumFractionDigits: 1
     }).format(num);
   };
-
-  return (
-    <div className="min-h-screen bg-gray-50">
+  return <div className="min-h-screen bg-gray-50">
       <SidebarProvider>
         <div className="min-h-screen flex w-full">
           <DashboardSidebar />
@@ -175,9 +160,8 @@ const Campaigns = () => {
 
                 {/* Campaigns Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {campaigns.map((campaign) => (
-                    <Card key={campaign.id} className="bg-white border border-gray-200 shadow-sm hover:shadow-md transition-all duration-200 rounded-xl overflow-hidden hover:border-gray-300">
-                      <CardHeader className="pb-4">
+                  {campaigns.map(campaign => <Card key={campaign.id} className="border border-gray-200 shadow-sm hover:shadow-md transition-all duration-200 rounded-xl overflow-hidden hover:border-gray-300 bg-slate-50">
+                      <CardHeader className="pb-4 bg-transparent">
                         <div className="flex items-start justify-between">
                           <div className="flex-1">
                             <CardTitle className="text-lg font-semibold text-gray-900 mb-2">
@@ -205,7 +189,7 @@ const Campaigns = () => {
                               {formatCurrency(campaign.spent)} / {formatCurrency(campaign.budget)}
                             </p>
                             <p className="text-xs text-gray-500">
-                              {campaign.budget > 0 ? Math.round((campaign.spent / campaign.budget) * 100) : 0}% used
+                              {campaign.budget > 0 ? Math.round(campaign.spent / campaign.budget * 100) : 0}% used
                             </p>
                           </div>
                         </div>
@@ -271,16 +255,13 @@ const Campaigns = () => {
                           </Button>
                         </div>
                       </CardContent>
-                    </Card>
-                  ))}
+                    </Card>)}
                 </div>
               </div>
             </div>
           </SidebarInset>
         </div>
       </SidebarProvider>
-    </div>
-  );
+    </div>;
 };
-
 export default Campaigns;
