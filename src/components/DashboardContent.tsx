@@ -1,9 +1,9 @@
-
 import React from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { BarChart3, Users, MessageSquare, TrendingUp, Plus, Eye, Heart, DollarSign, Target } from "lucide-react";
 import { useCountUp } from "@/hooks/useCountUp";
+import { NewCampaignForm } from "@/components/NewCampaignForm";
 
 export function DashboardContent() {
   // Animated counters for main metrics
@@ -59,6 +59,11 @@ export function DashboardContent() {
     }
   ];
 
+  const handleNewCampaign = (data: any) => {
+    // This could be handled by a global state or parent component
+    console.log('New campaign created:', data);
+  };
+
   return (
     <div className="flex-1 p-8 bg-gray-50">
       <div className="max-w-7xl mx-auto">
@@ -73,10 +78,7 @@ export function DashboardContent() {
                 Monitor your influencer marketing performance and campaigns
               </p>
             </div>
-            <Button className="mt-4 sm:mt-0 bg-blue-600 hover:bg-blue-700 rounded-xl px-6">
-              <Plus className="w-4 h-4 mr-2" />
-              New Campaign
-            </Button>
+            <NewCampaignForm onSubmit={handleNewCampaign} />
           </div>
         </div>
 
