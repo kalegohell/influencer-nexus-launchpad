@@ -36,7 +36,7 @@ const menuItems = [
   {
     title: "Influencers",
     icon: Users,
-    href: "#influencers"
+    href: "/influencers"
   },
   {
     title: "Campaigns",
