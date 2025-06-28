@@ -21,6 +21,7 @@ import {
   Home
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useLocation } from "react-router-dom";
 
 const menuItems = [
   {
@@ -61,9 +62,18 @@ const menuItems = [
 ];
 
 export function DashboardSidebar() {
+  const location = useLocation();
+  
   const handleLogout = () => {
     // Handle logout logic here
     window.location.href = '/';
+  };
+
+  const isActive = (href: string) => {
+    if (href === "/dashboard") {
+      return location.pathname === "/dashboard";
+    }
+    return location.pathname === href;
   };
 
   return (
@@ -82,16 +92,54 @@ export function DashboardSidebar() {
       
       <SidebarContent className="p-4">
         <SidebarMenu>
-          {menuItems.map((item) => (
-            <SidebarMenuItem key={item.title}>
-              <SidebarMenuButton asChild className="w-full justify-start mb-1">
-                <a href={item.href} className="flex items-center space-x-3 p-3 rounded-xl hover:bg-gray-50 transition-colors group">
-                  <item.icon className="w-5 h-5 text-gray-500 group-hover:text-blue-600 transition-colors" />
-                  <span className="text-gray-700 font-medium group-hover:text-gray-900">{item.title}</span>
-                </a>
-              </SidebarMenuButton>
-            </SidebarMenuItem>
-          ))}
+          {menuItems.map((item) => {
+            const active = isActive(item.href);
+            return (
+              <SidebarMenuItem key={item.title}>
+                <SidebarMenuButton asChild className="w-full justify-start mb-1">
+                  <a 
+                    href={item.href} 
+                    className={`relative flex items-center space-x-3 p-3 rounded-xl transition-all duration-300 group overflow-hidden ${
+                      active 
+                        ? 'bg-gradient-to-r from-blue-500 to-blue-600 text-white shadow-lg shadow-blue-500/25 transform scale-105' 
+                        : 'hover:bg-gray-50 hover:scale-102'
+                    }`}
+                  >
+                    {/* Active indicator line */}
+                    <div className={`absolute left-0 top-0 h-full w-1 bg-white rounded-r-full transition-all duration-300 ${
+                      active ? 'opacity-100 scale-y-100' : 'opacity-0 scale-y-0'
+                    }`} />
+                    
+                    {/* Icon with glow effect when active */}
+                    <div className={`relative ${active ? 'drop-shadow-sm' : ''}`}>
+                      <item.icon className={`w-5 h-5 transition-all duration-300 ${
+                        active 
+                          ? 'text-white' 
+                          : 'text-gray-500 group-hover:text-blue-600'
+                      }`} />
+                      {/* Subtle glow effect for active icon */}
+                      {active && (
+                        <div className="absolute inset-0 w-5 h-5 bg-white rounded-full opacity-20 blur-sm" />
+                      )}
+                    </div>
+                    
+                    <span className={`font-medium transition-all duration-300 ${
+                      active 
+                        ? 'text-white font-semibold' 
+                        : 'text-gray-700 group-hover:text-gray-900'
+                    }`}>
+                      {item.title}
+                    </span>
+
+                    {/* Shimmer effect for active items */}
+                    {active && (
+                      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent animate-pulse" />
+                    )}
+                  </a>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            );
+          })}
         </SidebarMenu>
       </SidebarContent>
 
@@ -99,7 +147,7 @@ export function DashboardSidebar() {
         <Button 
           variant="ghost" 
           onClick={handleLogout}
-          className="w-full justify-start text-gray-600 hover:text-red-600 hover:bg-red-50 rounded-xl"
+          className="w-full justify-start text-gray-600 hover:text-red-600 hover:bg-red-50 rounded-xl transition-all duration-300 hover:scale-102"
         >
           <LogOut className="w-4 h-4 mr-3" />
           Logout
