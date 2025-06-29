@@ -1,153 +1,379 @@
 
-import React from 'react';
+import React, { useState, useMemo } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { LineChart, Line, AreaChart, Area, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { Button } from '@/components/ui/button';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Badge } from '@/components/ui/badge';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { LineChart, Line, AreaChart, Area, BarChart, Bar, PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
+import { Calendar, Filter, TrendingUp, Users, Eye, Heart, DollarSign, Target, Download } from 'lucide-react';
 
 const Analytics = () => {
+  const [timeRange, setTimeRange] = useState('6months');
+  const [campaignFilter, setCampaignFilter] = useState('all');
+  const [influencerType, setInfluencerType] = useState('all');
+
+  // Mock data - in real app, this would come from API
   const performanceData = [
-    { month: 'Jan', engagement: 4000, reach: 24000, conversions: 800 },
-    { month: 'Feb', engagement: 5200, reach: 32000, conversions: 1200 },
-    { month: 'Mar', engagement: 6800, reach: 45000, conversions: 1800 },
-    { month: 'Apr', engagement: 8400, reach: 58000, conversions: 2400 },
-    { month: 'May', engagement: 10200, reach: 72000, conversions: 3200 },
-    { month: 'Jun', engagement: 12800, reach: 89000, conversions: 4100 }
+    { month: 'Jan', engagement: 4000, reach: 24000, conversions: 800, revenue: 12000, clicks: 3200 },
+    { month: 'Feb', engagement: 5200, reach: 32000, conversions: 1200, revenue: 18000, clicks: 4100 },
+    { month: 'Mar', engagement: 6800, reach: 45000, conversions: 1800, revenue: 27000, clicks: 5300 },
+    { month: 'Apr', engagement: 8400, reach: 58000, conversions: 2400, revenue: 36000, clicks: 6800 },
+    { month: 'May', engagement: 10200, reach: 72000, conversions: 3200, revenue: 48000, clicks: 8100 },
+    { month: 'Jun', engagement: 12800, reach: 89000, conversions: 4100, revenue: 61500, clicks: 9600 }
   ];
 
-  const roiData = [
-    { campaign: 'Fashion Week', spend: 15000, revenue: 180000, roi: 12 },
-    { campaign: 'Summer Launch', spend: 22000, revenue: 286000, roi: 13 },
-    { campaign: 'Back to School', spend: 18000, revenue: 234000, roi: 13 },
-    { campaign: 'Holiday 2024', spend: 25000, revenue: 375000, roi: 15 }
+  const campaignROIData = [
+    { name: 'Fashion Week', spend: 15000, revenue: 180000, roi: 12, impressions: 2400000 },
+    { name: 'Summer Launch', spend: 22000, revenue: 286000, roi: 13, impressions: 3200000 },
+    { name: 'Back to School', spend: 18000, revenue: 234000, roi: 13, impressions: 2800000 },
+    { name: 'Holiday 2024', spend: 25000, revenue: 375000, roi: 15, impressions: 4100000 }
   ];
+
+  const influencerTypeData = [
+    { name: 'Micro', value: 45, color: '#3B82F6' },
+    { name: 'Macro', value: 35, color: '#10B981' },
+    { name: 'Mega', value: 20, color: '#F59E0B' }
+  ];
+
+  const platformData = [
+    { platform: 'Instagram', reach: 45000, engagement: 8200, conversions: 1800 },
+    { platform: 'TikTok', reach: 38000, engagement: 7800, conversions: 1600 },
+    { platform: 'YouTube', reach: 28000, engagement: 5400, conversions: 1200 },
+    { platform: 'Twitter', reach: 22000, engagement: 3600, conversions: 800 }
+  ];
+
+  const topInfluencers = [
+    { name: 'Sarah Ahmed', followers: '125K', engagement: '5.2%', revenue: '$12.5K', campaigns: 3 },
+    { name: 'Ali Hassan', followers: '89K', engagement: '4.8%', revenue: '$9.8K', campaigns: 2 },
+    { name: 'Fatima Khan', followers: '156K', engagement: '4.1%', revenue: '$15.2K', campaigns: 4 },
+    { name: 'Omar Ali', followers: '203K', engagement: '3.9%', revenue: '$18.7K', campaigns: 5 }
+  ];
+
+  // Calculate key metrics
+  const totalMetrics = useMemo(() => {
+    const latest = performanceData[performanceData.length - 1];
+    const previous = performanceData[performanceData.length - 2];
+    
+    return {
+      totalReach: latest.reach,
+      reachGrowth: ((latest.reach - previous.reach) / previous.reach * 100).toFixed(1),
+      totalEngagement: latest.engagement,
+      engagementGrowth: ((latest.engagement - previous.engagement) / previous.engagement * 100).toFixed(1),
+      totalRevenue: latest.revenue,
+      revenueGrowth: ((latest.revenue - previous.revenue) / previous.revenue * 100).toFixed(1),
+      avgROI: (campaignROIData.reduce((sum, campaign) => sum + campaign.roi, 0) / campaignROIData.length).toFixed(1)
+    };
+  }, [performanceData, campaignROIData]);
+
+  const CustomTooltip = ({ active, payload, label }: any) => {
+    if (active && payload && payload.length) {
+      return (
+        <div className="bg-white p-3 border border-gray-200 rounded-lg shadow-lg">
+          <p className="font-medium text-gray-900">{label}</p>
+          {payload.map((entry: any, index: number) => (
+            <p key={index} className="text-sm" style={{ color: entry.color }}>
+              {entry.name}: {entry.value.toLocaleString()}
+            </p>
+          ))}
+        </div>
+      );
+    }
+    return null;
+  };
 
   return (
-    <section id="analytics" className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-slate-50 to-blue-50">
+    <div className="min-h-screen bg-gray-50 p-6">
       <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6">
-            Data-Driven Results You Can
-            <span className="bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
-              {" "}Track & Trust
-            </span>
-          </h2>
-          <p className="text-xl text-slate-700 max-w-3xl mx-auto">
-            Our comprehensive analytics dashboard provides real-time insights into campaign performance, 
-            audience engagement, and ROI metrics that matter to your bottom line.
-          </p>
-        </div>
+        {/* Header */}
+        <div className="mb-8">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6">
+            <div>
+              <h1 className="text-3xl font-bold text-gray-900 mb-2">Analytics Dashboard</h1>
+              <p className="text-gray-600">Comprehensive insights into your influencer marketing performance</p>
+            </div>
+            <Button className="flex items-center gap-2">
+              <Download className="h-4 w-4" />
+              Export Report
+            </Button>
+          </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
-          {/* Engagement Trends */}
-          <Card className="bg-white/90 backdrop-blur-md border border-slate-200 shadow-xl rounded-2xl">
-            <CardHeader>
-              <CardTitle className="text-slate-900 text-xl font-semibold">Campaign Performance Trends</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <ResponsiveContainer width="100%" height={300}>
-                <AreaChart data={performanceData}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#CBD5E1" />
-                  <XAxis dataKey="month" stroke="#475569" fontSize={12} />
-                  <YAxis stroke="#475569" fontSize={12} />
-                  <Tooltip 
-                    contentStyle={{ 
-                      backgroundColor: '#FFFFFF', 
-                      border: '1px solid #E2E8F0',
-                      borderRadius: '12px',
-                      color: '#0F172A',
-                      boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.1)'
-                    }} 
-                  />
-                  <Area 
-                    type="monotone" 
-                    dataKey="engagement" 
-                    stroke="#2563EB" 
-                    fill="url(#engagementGradient)" 
-                    strokeWidth={3}
-                  />
-                  <Area 
-                    type="monotone" 
-                    dataKey="reach" 
-                    stroke="#0891B2" 
-                    fill="url(#reachGradient)" 
-                    strokeWidth={3}
-                  />
-                  <defs>
-                    <linearGradient id="engagementGradient" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="#2563EB" stopOpacity={0.4}/>
-                      <stop offset="95%" stopColor="#2563EB" stopOpacity={0.05}/>
-                    </linearGradient>
-                    <linearGradient id="reachGradient" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="#0891B2" stopOpacity={0.4}/>
-                      <stop offset="95%" stopColor="#0891B2" stopOpacity={0.05}/>
-                    </linearGradient>
-                  </defs>
-                </AreaChart>
-              </ResponsiveContainer>
-            </CardContent>
-          </Card>
+          {/* Filters */}
+          <div className="flex flex-wrap gap-4 p-4 bg-white rounded-lg border border-gray-200">
+            <div className="flex items-center gap-2">
+              <Calendar className="h-4 w-4 text-gray-500" />
+              <Select value={timeRange} onValueChange={setTimeRange}>
+                <SelectTrigger className="w-40">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="30days">Last 30 Days</SelectItem>
+                  <SelectItem value="3months">Last 3 Months</SelectItem>
+                  <SelectItem value="6months">Last 6 Months</SelectItem>
+                  <SelectItem value="1year">Last Year</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
 
-          {/* ROI Analysis */}
-          <Card className="bg-white/90 backdrop-blur-md border border-slate-200 shadow-xl rounded-2xl">
-            <CardHeader>
-              <CardTitle className="text-slate-900 text-xl font-semibold">ROI by Campaign</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <ResponsiveContainer width="100%" height={300}>
-                <BarChart data={roiData}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#CBD5E1" />
-                  <XAxis dataKey="campaign" stroke="#475569" fontSize={12} />
-                  <YAxis stroke="#475569" fontSize={12} />
-                  <Tooltip 
-                    contentStyle={{ 
-                      backgroundColor: '#FFFFFF', 
-                      border: '1px solid #E2E8F0',
-                      borderRadius: '12px',
-                      color: '#0F172A',
-                      boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.1)'
-                    }} 
-                  />
-                  <Bar dataKey="roi" fill="url(#roiGradient)" radius={[6, 6, 0, 0]} />
-                  <defs>
-                    <linearGradient id="roiGradient" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="#0891B2" stopOpacity={0.9}/>
-                      <stop offset="95%" stopColor="#0E7490" stopOpacity={0.8}/>
-                    </linearGradient>
-                  </defs>
-                </BarChart>
-              </ResponsiveContainer>
-            </CardContent>
-          </Card>
+            <div className="flex items-center gap-2">
+              <Filter className="h-4 w-4 text-gray-500" />
+              <Select value={campaignFilter} onValueChange={setCampaignFilter}>
+                <SelectTrigger className="w-40">
+                  <SelectValue placeholder="All Campaigns" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">All Campaigns</SelectItem>
+                  <SelectItem value="active">Active Only</SelectItem>
+                  <SelectItem value="completed">Completed</SelectItem>
+                  <SelectItem value="pending">Pending</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+
+            <div className="flex items-center gap-2">
+              <Users className="h-4 w-4 text-gray-500" />
+              <Select value={influencerType} onValueChange={setInfluencerType}>
+                <SelectTrigger className="w-40">
+                  <SelectValue placeholder="All Influencers" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">All Types</SelectItem>
+                  <SelectItem value="micro">Micro (1K-100K)</SelectItem>
+                  <SelectItem value="macro">Macro (100K-1M)</SelectItem>
+                  <SelectItem value="mega">Mega (1M+)</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
         </div>
 
         {/* Key Metrics */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-          <Card className="bg-gradient-to-br from-blue-500 to-blue-600 border-0 shadow-xl rounded-2xl">
-            <CardContent className="p-6 text-center">
-              <div className="text-3xl font-bold text-white mb-2">12.4x</div>
-              <div className="text-blue-100 font-medium">Average ROI</div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+          <Card className="bg-gradient-to-r from-blue-500 to-blue-600 text-white border-0">
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-blue-100 text-sm font-medium">Total Reach</p>
+                  <p className="text-2xl font-bold">{totalMetrics.totalReach.toLocaleString()}</p>
+                  <p className="text-blue-100 text-sm">+{totalMetrics.reachGrowth}% from last month</p>
+                </div>
+                <Eye className="h-8 w-8 text-blue-200" />
+              </div>
             </CardContent>
           </Card>
-          <Card className="bg-gradient-to-br from-slate-600 to-slate-700 border-0 shadow-xl rounded-2xl">
-            <CardContent className="p-6 text-center">
-              <div className="text-3xl font-bold text-white mb-2">89%</div>
-              <div className="text-slate-100 font-medium">Campaign Success Rate</div>
+
+          <Card className="bg-gradient-to-r from-green-500 to-green-600 text-white border-0">
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-green-100 text-sm font-medium">Engagement</p>
+                  <p className="text-2xl font-bold">{totalMetrics.totalEngagement.toLocaleString()}</p>
+                  <p className="text-green-100 text-sm">+{totalMetrics.engagementGrowth}% from last month</p>
+                </div>
+                <Heart className="h-8 w-8 text-green-200" />
+              </div>
             </CardContent>
           </Card>
-          <Card className="bg-gradient-to-br from-cyan-500 to-cyan-600 border-0 shadow-xl rounded-2xl">
-            <CardContent className="p-6 text-center">
-              <div className="text-3xl font-bold text-white mb-2">3.2M</div>
-              <div className="text-cyan-100 font-medium">Total Reach</div>
+
+          <Card className="bg-gradient-to-r from-purple-500 to-purple-600 text-white border-0">
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-purple-100 text-sm font-medium">Revenue</p>
+                  <p className="text-2xl font-bold">${totalMetrics.totalRevenue.toLocaleString()}</p>
+                  <p className="text-purple-100 text-sm">+{totalMetrics.revenueGrowth}% from last month</p>
+                </div>
+                <DollarSign className="h-8 w-8 text-purple-200" />
+              </div>
             </CardContent>
           </Card>
-          <Card className="bg-gradient-to-br from-gray-600 to-gray-700 border-0 shadow-xl rounded-2xl">
-            <CardContent className="p-6 text-center">
-              <div className="text-3xl font-bold text-white mb-2">24h</div>
-              <div className="text-gray-100 font-medium">Campaign Launch Time</div>
+
+          <Card className="bg-gradient-to-r from-orange-500 to-orange-600 text-white border-0">
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-orange-100 text-sm font-medium">Average ROI</p>
+                  <p className="text-2xl font-bold">{totalMetrics.avgROI}x</p>
+                  <p className="text-orange-100 text-sm">Across all campaigns</p>
+                </div>
+                <TrendingUp className="h-8 w-8 text-orange-200" />
+              </div>
             </CardContent>
           </Card>
         </div>
+
+        {/* Analytics Tabs */}
+        <Tabs defaultValue="performance" className="space-y-6">
+          <TabsList className="grid w-full grid-cols-4 lg:w-fit">
+            <TabsTrigger value="performance">Performance</TabsTrigger>
+            <TabsTrigger value="campaigns">Campaigns</TabsTrigger>
+            <TabsTrigger value="influencers">Influencers</TabsTrigger>
+            <TabsTrigger value="platforms">Platforms</TabsTrigger>
+          </TabsList>
+
+          <TabsContent value="performance" className="space-y-6">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <Card>
+                <CardHeader>
+                  <CardTitle>Engagement & Reach Trends</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <ResponsiveContainer width="100%" height={300}>
+                    <AreaChart data={performanceData}>
+                      <CartesianGrid strokeDasharray="3 3" />
+                      <XAxis dataKey="month" />
+                      <YAxis />
+                      <Tooltip content={<CustomTooltip />} />
+                      <Area type="monotone" dataKey="reach" stackId="1" stroke="#3B82F6" fill="#3B82F6" fillOpacity={0.6} />
+                      <Area type="monotone" dataKey="engagement" stackId="2" stroke="#10B981" fill="#10B981" fillOpacity={0.6} />
+                    </AreaChart>
+                  </ResponsiveContainer>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader>
+                  <CardTitle>Revenue & Conversions</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <ResponsiveContainer width="100%" height={300}>
+                    <LineChart data={performanceData}>
+                      <CartesianGrid strokeDasharray="3 3" />
+                      <XAxis dataKey="month" />
+                      <YAxis />
+                      <Tooltip content={<CustomTooltip />} />
+                      <Line type="monotone" dataKey="revenue" stroke="#8B5CF6" strokeWidth={3} />
+                      <Line type="monotone" dataKey="conversions" stroke="#F59E0B" strokeWidth={3} />
+                    </LineChart>
+                  </ResponsiveContainer>
+                </CardContent>
+              </Card>
+            </div>
+          </TabsContent>
+
+          <TabsContent value="campaigns" className="space-y-6">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+              <Card className="lg:col-span-2">
+                <CardHeader>
+                  <CardTitle>Campaign ROI Analysis</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <ResponsiveContainer width="100%" height={300}>
+                    <BarChart data={campaignROIData}>
+                      <CartesianGrid strokeDasharray="3 3" />
+                      <XAxis dataKey="name" />
+                      <YAxis />
+                      <Tooltip content={<CustomTooltip />} />
+                      <Bar dataKey="roi" fill="#10B981" radius={[4, 4, 0, 0]} />
+                    </BarChart>
+                  </ResponsiveContainer>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader>
+                  <CardTitle>Campaign Performance</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-4">
+                    {campaignROIData.map((campaign, index) => (
+                      <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                        <div>
+                          <p className="font-medium text-gray-900">{campaign.name}</p>
+                          <p className="text-sm text-gray-500">ROI: {campaign.roi}x</p>
+                        </div>
+                        <Badge variant="secondary">${campaign.revenue.toLocaleString()}</Badge>
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          </TabsContent>
+
+          <TabsContent value="influencers" className="space-y-6">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+              <Card>
+                <CardHeader>
+                  <CardTitle>Influencer Distribution</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <ResponsiveContainer width="100%" height={250}>
+                    <PieChart>
+                      <Pie
+                        data={influencerTypeData}
+                        cx="50%"
+                        cy="50%"
+                        innerRadius={40}
+                        outerRadius={80}
+                        paddingAngle={5}
+                        dataKey="value"
+                      >
+                        {influencerTypeData.map((entry, index) => (
+                          <Cell key={`cell-${index}`} fill={entry.color} />
+                        ))}
+                      </Pie>
+                      <Tooltip />
+                      <Legend />
+                    </PieChart>
+                  </ResponsiveContainer>
+                </CardContent>
+              </Card>
+
+              <Card className="lg:col-span-2">
+                <CardHeader>
+                  <CardTitle>Top Performing Influencers</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-4">
+                    {topInfluencers.map((influencer, index) => (
+                      <div key={index} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+                        <div className="flex items-center space-x-3">
+                          <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-500 rounded-full flex items-center justify-center">
+                            <span className="text-white font-medium text-sm">
+                              {influencer.name.split(' ').map(n => n[0]).join('')}
+                            </span>
+                          </div>
+                          <div>
+                            <p className="font-medium text-gray-900">{influencer.name}</p>
+                            <p className="text-sm text-gray-500">{influencer.followers} followers</p>
+                          </div>
+                        </div>
+                        <div className="text-right">
+                          <p className="text-sm font-medium text-green-600">{influencer.engagement}</p>
+                          <p className="text-xs text-gray-500">{influencer.revenue}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          </TabsContent>
+
+          <TabsContent value="platforms" className="space-y-6">
+            <Card>
+              <CardHeader>
+                <CardTitle>Platform Performance Comparison</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <ResponsiveContainer width="100%" height={400}>
+                  <BarChart data={platformData}>
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis dataKey="platform" />
+                    <YAxis />
+                    <Tooltip content={<CustomTooltip />} />
+                    <Bar dataKey="reach" fill="#3B82F6" name="Reach" />
+                    <Bar dataKey="engagement" fill="#10B981" name="Engagement" />
+                    <Bar dataKey="conversions" fill="#F59E0B" name="Conversions" />
+                  </BarChart>
+                </ResponsiveContainer>
+              </CardContent>
+            </Card>
+          </TabsContent>
+        </Tabs>
       </div>
-    </section>
+    </div>
   );
 };
 
