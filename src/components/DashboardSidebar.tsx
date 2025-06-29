@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { 
   Sidebar, 
@@ -32,7 +31,7 @@ const menuItems = [
   {
     title: "Analytics",
     icon: BarChart3,
-    href: "#analytics"
+    href: "/analytics"
   },
   {
     title: "Influencers",
