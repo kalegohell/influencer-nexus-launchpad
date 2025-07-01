@@ -9,6 +9,7 @@ import Dashboard from "./pages/Dashboard";
 import Campaigns from "./pages/Campaigns";
 import Influencers from "./pages/Influencers";
 import AnalyticsPage from "./pages/Analytics";
+import Admin from "./pages/Admin";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -25,6 +26,7 @@ const App = () => (
           <Route path="/campaigns" element={<Campaigns />} />
           <Route path="/influencers" element={<Influencers />} />
           <Route path="/analytics" element={<AnalyticsPage />} />
+          <Route path="/admin" element={<Admin />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
