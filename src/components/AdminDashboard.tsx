@@ -29,7 +29,9 @@ import {
   Eye,
   MoreHorizontal,
   Plus,
-  Filter
+  Filter,
+  BarChart3,
+  Settings
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 
