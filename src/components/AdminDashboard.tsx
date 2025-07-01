@@ -34,38 +34,9 @@ import {
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { InfluencerDirectory } from "./InfluencerDirectory";
+import { BrandManagement } from "./BrandManagement";
 
-// Mock data for brands and influencers
-const mockBrands = [
-  {
-    id: 1,
-    name: "Nike Sports",
-    email: "admin@nike.com",
-    status: "Active",
-    campaigns: 12,
-    totalSpend: "$45,000",
-    joinDate: "2024-01-15"
-  },
-  {
-    id: 2,
-    name: "Coca Cola",
-    email: "marketing@cocacola.com",
-    status: "Active",
-    campaigns: 8,
-    totalSpend: "$32,000",
-    joinDate: "2024-02-20"
-  },
-  {
-    id: 3,
-    name: "Apple Inc",
-    email: "campaigns@apple.com",
-    status: "Pending",
-    campaigns: 3,
-    totalSpend: "$15,000",
-    joinDate: "2024-03-10"
-  }
-];
-
+// Keep existing mock data for influencers
 const mockInfluencers = [
   {
     id: 1,
@@ -200,13 +171,13 @@ export function AdminDashboard() {
         ))}
       </div>
 
-      {/* Search Bar - only show for brands and influencers tabs */}
-      {(activeTab === "brands" || activeTab === "influencers") && (
+      {/* Search Bar - only show for influencers tab */}
+      {activeTab === "influencers" && (
         <div className="flex items-center space-x-4">
           <div className="relative flex-1 max-w-md">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
             <Input
-              placeholder="Search brands, influencers..."
+              placeholder="Search influencers..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               className="pl-10"
@@ -217,59 +188,8 @@ export function AdminDashboard() {
 
       {/* Content based on active tab */}
       {activeTab === "directory" && <InfluencerDirectory />}
-
-      {activeTab === "brands" && (
-        <Card>
-          <CardHeader>
-            <CardTitle>Brand Management</CardTitle>
-            <CardDescription>Manage all registered brands and their campaigns</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Brand Name</TableHead>
-                  <TableHead>Email</TableHead>
-                  <TableHead>Status</TableHead>
-                  <TableHead>Campaigns</TableHead>
-                  <TableHead>Total Spend</TableHead>
-                  <TableHead>Join Date</TableHead>
-                  <TableHead>Actions</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {mockBrands.map((brand) => (
-                  <TableRow key={brand.id}>
-                    <TableCell className="font-medium">{brand.name}</TableCell>
-                    <TableCell>{brand.email}</TableCell>
-                    <TableCell>
-                      <Badge className={getStatusBadge(brand.status)}>
-                        {brand.status}
-                      </Badge>
-                    </TableCell>
-                    <TableCell>{brand.campaigns}</TableCell>
-                    <TableCell>{brand.totalSpend}</TableCell>
-                    <TableCell>{brand.joinDate}</TableCell>
-                    <TableCell>
-                      <div className="flex space-x-2">
-                        <Button variant="ghost" size="sm">
-                          <Eye className="w-4 h-4" />
-                        </Button>
-                        <Button variant="ghost" size="sm">
-                          <Edit className="w-4 h-4" />
-                        </Button>
-                        <Button variant="ghost" size="sm">
-                          <MoreHorizontal className="w-4 h-4" />
-                        </Button>
-                      </div>
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </CardContent>
-        </Card>
-      )}
+      
+      {activeTab === "brands" && <BrandManagement />}
 
       {activeTab === "influencers" && (
         <Card>
