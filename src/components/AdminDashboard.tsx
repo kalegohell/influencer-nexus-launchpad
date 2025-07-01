@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -34,6 +33,7 @@ import {
   Settings
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { InfluencerDirectory } from "./InfluencerDirectory";
 
 // Mock data for brands and influencers
 const mockBrands = [
@@ -185,7 +185,7 @@ export function AdminDashboard() {
 
       {/* Navigation Tabs */}
       <div className="flex space-x-1 bg-gray-100 p-1 rounded-lg w-fit">
-        {["overview", "brands", "influencers"].map((tab) => (
+        {["overview", "brands", "influencers", "directory"].map((tab) => (
           <button
             key={tab}
             onClick={() => setActiveTab(tab)}
@@ -195,25 +195,29 @@ export function AdminDashboard() {
                 : "text-gray-600 hover:text-gray-900"
             }`}
           >
-            {tab.charAt(0).toUpperCase() + tab.slice(1)}
+            {tab === "directory" ? "Influencer Directory" : tab.charAt(0).toUpperCase() + tab.slice(1)}
           </button>
         ))}
       </div>
 
-      {/* Search Bar */}
-      <div className="flex items-center space-x-4">
-        <div className="relative flex-1 max-w-md">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
-          <Input
-            placeholder="Search brands, influencers..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="pl-10"
-          />
+      {/* Search Bar - only show for brands and influencers tabs */}
+      {(activeTab === "brands" || activeTab === "influencers") && (
+        <div className="flex items-center space-x-4">
+          <div className="relative flex-1 max-w-md">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+            <Input
+              placeholder="Search brands, influencers..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="pl-10"
+            />
+          </div>
         </div>
-      </div>
+      )}
 
       {/* Content based on active tab */}
+      {activeTab === "directory" && <InfluencerDirectory />}
+
       {activeTab === "brands" && (
         <Card>
           <CardHeader>
