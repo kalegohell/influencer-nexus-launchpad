@@ -33,8 +33,6 @@ import {
   Settings
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import { InfluencerDirectory } from "./InfluencerDirectory";
-import { BrandManagement } from "./BrandManagement";
 
 // Keep existing mock data for influencers
 const mockInfluencers = [
@@ -72,7 +70,6 @@ const mockInfluencers = [
 
 export function AdminDashboard() {
   const [searchTerm, setSearchTerm] = useState("");
-  const [activeTab, setActiveTab] = useState("overview");
 
   const stats = [
     {
@@ -154,161 +151,68 @@ export function AdminDashboard() {
         ))}
       </div>
 
-      {/* Navigation Tabs */}
-      <div className="flex space-x-1 bg-gray-100 p-1 rounded-lg w-fit">
-        {["overview", "brands", "influencers", "directory"].map((tab) => (
-          <button
-            key={tab}
-            onClick={() => setActiveTab(tab)}
-            className={`px-4 py-2 rounded-md font-medium transition-all ${
-              activeTab === tab
-                ? "bg-white text-gray-900 shadow-sm"
-                : "text-gray-600 hover:text-gray-900"
-            }`}
-          >
-            {tab === "directory" ? "Influencer Directory" : tab.charAt(0).toUpperCase() + tab.slice(1)}
-          </button>
-        ))}
-      </div>
-
-      {/* Search Bar - only show for influencers tab */}
-      {activeTab === "influencers" && (
-        <div className="flex items-center space-x-4">
-          <div className="relative flex-1 max-w-md">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
-            <Input
-              placeholder="Search influencers..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="pl-10"
-            />
-          </div>
-        </div>
-      )}
-
-      {/* Content based on active tab */}
-      {activeTab === "directory" && <InfluencerDirectory />}
-      
-      {activeTab === "brands" && <BrandManagement />}
-
-      {activeTab === "influencers" && (
+      {/* Overview Content */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <Card>
           <CardHeader>
-            <CardTitle>Influencer Management</CardTitle>
-            <CardDescription>Manage all registered influencers and their performance</CardDescription>
+            <CardTitle>Recent Activity</CardTitle>
           </CardHeader>
           <CardContent>
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Name</TableHead>
-                  <TableHead>Email</TableHead>
-                  <TableHead>Followers</TableHead>
-                  <TableHead>Engagement</TableHead>
-                  <TableHead>Category</TableHead>
-                  <TableHead>Status</TableHead>
-                  <TableHead>Earnings</TableHead>
-                  <TableHead>Actions</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {mockInfluencers.map((influencer) => (
-                  <TableRow key={influencer.id}>
-                    <TableCell className="font-medium">{influencer.name}</TableCell>
-                    <TableCell>{influencer.email}</TableCell>
-                    <TableCell>{influencer.followers}</TableCell>
-                    <TableCell>{influencer.engagement}</TableCell>
-                    <TableCell>{influencer.category}</TableCell>
-                    <TableCell>
-                      <Badge className={getStatusBadge(influencer.status)}>
-                        {influencer.status}
-                      </Badge>
-                    </TableCell>
-                    <TableCell>{influencer.earnings}</TableCell>
-                    <TableCell>
-                      <div className="flex space-x-2">
-                        <Button variant="ghost" size="sm">
-                          <Eye className="w-4 h-4" />
-                        </Button>
-                        <Button variant="ghost" size="sm">
-                          <Edit className="w-4 h-4" />
-                        </Button>
-                        <Button variant="ghost" size="sm">
-                          <MoreHorizontal className="w-4 h-4" />
-                        </Button>
-                      </div>
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
+            <div className="space-y-4">
+              <div className="flex items-center space-x-3 p-3 bg-blue-50 rounded-lg">
+                <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                <div className="flex-1">
+                  <p className="text-sm font-medium">New brand registration</p>
+                  <p className="text-xs text-gray-600">Apple Inc joined the platform</p>
+                </div>
+                <span className="text-xs text-gray-500">2h ago</span>
+              </div>
+              <div className="flex items-center space-x-3 p-3 bg-green-50 rounded-lg">
+                <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                <div className="flex-1">
+                  <p className="text-sm font-medium">Campaign completed</p>
+                  <p className="text-xs text-gray-600">Nike Sports campaign ended</p>
+                </div>
+                <span className="text-xs text-gray-500">4h ago</span>
+              </div>
+              <div className="flex items-center space-x-3 p-3 bg-orange-50 rounded-lg">
+                <div className="w-2 h-2 bg-orange-500 rounded-full"></div>
+                <div className="flex-1">
+                  <p className="text-sm font-medium">New influencer verified</p>
+                  <p className="text-xs text-gray-600">Emma Davis profile approved</p>
+                </div>
+                <span className="text-xs text-gray-500">6h ago</span>
+              </div>
+            </div>
           </CardContent>
         </Card>
-      )}
 
-      {activeTab === "overview" && (
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <Card>
-            <CardHeader>
-              <CardTitle>Recent Activity</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                <div className="flex items-center space-x-3 p-3 bg-blue-50 rounded-lg">
-                  <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-                  <div className="flex-1">
-                    <p className="text-sm font-medium">New brand registration</p>
-                    <p className="text-xs text-gray-600">Apple Inc joined the platform</p>
-                  </div>
-                  <span className="text-xs text-gray-500">2h ago</span>
-                </div>
-                <div className="flex items-center space-x-3 p-3 bg-green-50 rounded-lg">
-                  <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                  <div className="flex-1">
-                    <p className="text-sm font-medium">Campaign completed</p>
-                    <p className="text-xs text-gray-600">Nike Sports campaign ended</p>
-                  </div>
-                  <span className="text-xs text-gray-500">4h ago</span>
-                </div>
-                <div className="flex items-center space-x-3 p-3 bg-orange-50 rounded-lg">
-                  <div className="w-2 h-2 bg-orange-500 rounded-full"></div>
-                  <div className="flex-1">
-                    <p className="text-sm font-medium">New influencer verified</p>
-                    <p className="text-xs text-gray-600">Emma Davis profile approved</p>
-                  </div>
-                  <span className="text-xs text-gray-500">6h ago</span>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader>
-              <CardTitle>Quick Actions</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="grid grid-cols-2 gap-4">
-                <Button variant="outline" className="h-20 flex flex-col items-center justify-center space-y-2">
-                  <Building2 className="w-6 h-6" />
-                  <span className="text-sm">Add Brand</span>
-                </Button>
-                <Button variant="outline" className="h-20 flex flex-col items-center justify-center space-y-2">
-                  <Users className="w-6 h-6" />
-                  <span className="text-sm">Add Influencer</span>
-                </Button>
-                <Button variant="outline" className="h-20 flex flex-col items-center justify-center space-y-2">
-                  <BarChart3 className="w-6 h-6" />
-                  <span className="text-sm">View Reports</span>
-                </Button>
-                <Button variant="outline" className="h-20 flex flex-col items-center justify-center space-y-2">
-                  <Settings className="w-6 h-6" />
-                  <span className="text-sm">Settings</span>
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-      )}
+        <Card>
+          <CardHeader>
+            <CardTitle>Quick Actions</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-2 gap-4">
+              <Button variant="outline" className="h-20 flex flex-col items-center justify-center space-y-2">
+                <Building2 className="w-6 h-6" />
+                <span className="text-sm">Add Brand</span>
+              </Button>
+              <Button variant="outline" className="h-20 flex flex-col items-center justify-center space-y-2">
+                <Users className="w-6 h-6" />
+                <span className="text-sm">Add Influencer</span>
+              </Button>
+              <Button variant="outline" className="h-20 flex flex-col items-center justify-center space-y-2">
+                <BarChart3 className="w-6 h-6" />
+                <span className="text-sm">View Reports</span>
+              </Button>
+              <Button variant="outline" className="h-20 flex flex-col items-center justify-center space-y-2">
+                <Settings className="w-6 h-6" />
+                <span className="text-sm">Settings</span>
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
     </div>
   );
 }
