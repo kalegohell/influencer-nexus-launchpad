@@ -1,19 +1,16 @@
 
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { TrendingUp, Menu, X } from 'lucide-react';
-import { useToast } from '@/hooks/use-toast';
+import { TrendingUp, Menu, X, User, LogOut } from 'lucide-react';
+import { useAuth } from '@/hooks/useAuth';
+import { useNavigate } from 'react-router-dom';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 
 const Navbar = () => {
-  const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const { toast } = useToast();
+  const { user, signOut, loading } = useAuth();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -23,30 +20,17 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const handleLogin = (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    // Basic validation
-    if (!email || !password) {
-      toast({
-        title: "Error",
-        description: "Please fill in all fields",
-        variant: "destructive"
-      });
-      return;
+  const handleAuthAction = () => {
+    if (user) {
+      navigate('/dashboard');
+    } else {
+      navigate('/auth');
     }
+  };
 
-    // Simulate authentication
-    toast({
-      title: "Login Successful",
-      description: "Redirecting to your dashboard...",
-    });
-
-    // Close dialog and redirect to dashboard
-    setIsLoginOpen(false);
-    setTimeout(() => {
-      window.location.href = '/dashboard';
-    }, 1000);
+  const handleSignOut = async () => {
+    await signOut();
+    navigate('/');
   };
 
   return (
@@ -58,7 +42,7 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-14 md:h-16">
           {/* Logo */}
-          <div className="flex items-center space-x-2 group cursor-pointer">
+          <div className="flex items-center space-x-2 group cursor-pointer" onClick={() => navigate('/')}>
             <div className="relative">
               <div className="w-8 h-8 md:w-10 md:h-10 bg-gradient-to-br from-blue-600 to-blue-700 rounded-xl flex items-center justify-center shadow-sm group-hover:shadow-md transition-all duration-300 group-hover:scale-105">
                 <TrendingUp className="w-4 h-4 md:w-5 md:h-5 text-white" />
@@ -91,56 +75,38 @@ const Navbar = () => {
 
           {/* Right side */}
           <div className="flex items-center space-x-3">
-            {/* Login Button */}
-            <Dialog open={isLoginOpen} onOpenChange={setIsLoginOpen}>
-              <DialogTrigger asChild>
-                <Button 
-                  variant="outline" 
-                  className="bg-white border-gray-300 text-gray-700 hover:bg-gray-50 hover:border-gray-400 transition-all duration-200 rounded-lg px-3 py-2 md:px-4 text-sm font-medium"
-                >
-                  Brand Login
-                </Button>
-              </DialogTrigger>
-              <DialogContent className="bg-white border border-gray-200 shadow-xl rounded-2xl max-w-md">
-                <DialogHeader>
-                  <DialogTitle className="text-gray-900 text-xl font-semibold">
-                    Brand Portal Login
-                  </DialogTitle>
-                </DialogHeader>
-                <form onSubmit={handleLogin} className="space-y-4 mt-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="email" className="text-gray-700 font-medium">Email</Label>
-                    <Input 
-                      id="email" 
-                      type="email" 
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      className="bg-white border-gray-300 text-gray-900 focus:border-blue-500 focus:ring-blue-500/20 rounded-lg" 
-                      placeholder="Enter your email"
-                      required
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="password" className="text-gray-700 font-medium">Password</Label>
-                    <Input 
-                      id="password" 
-                      type="password" 
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                      className="bg-white border-gray-300 text-gray-900 focus:border-blue-500 focus:ring-blue-500/20 rounded-lg" 
-                      placeholder="Enter your password"
-                      required
-                    />
-                  </div>
+            {!loading && (
+              <>
+                {user ? (
+                  <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                      <Button variant="outline" className="flex items-center space-x-2">
+                        <User className="w-4 h-4" />
+                        <span className="hidden md:inline">
+                          {user.user_metadata?.full_name || user.email}
+                        </span>
+                      </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align="end">
+                      <DropdownMenuItem onClick={() => navigate('/dashboard')}>
+                        Dashboard
+                      </DropdownMenuItem>
+                      <DropdownMenuItem onClick={handleSignOut}>
+                        <LogOut className="w-4 h-4 mr-2" />
+                        Sign Out
+                      </DropdownMenuItem>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+                ) : (
                   <Button 
-                    type="submit"
-                    className="w-full bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium py-2.5 transition-colors duration-200"
+                    onClick={handleAuthAction}
+                    className="bg-blue-600 hover:bg-blue-700 text-white"
                   >
-                    Access Dashboard
+                    Sign In
                   </Button>
-                </form>
-              </DialogContent>
-            </Dialog>
+                )}
+              </>
+            )}
 
             {/* Mobile Menu Button */}
             <Button
@@ -174,6 +140,16 @@ const Navbar = () => {
                 {item.label}
               </a>
             ))}
+            {user && (
+              <Button
+                variant="ghost"
+                onClick={handleSignOut}
+                className="w-full justify-start px-4 py-3 text-gray-700 hover:text-blue-700"
+              >
+                <LogOut className="w-4 h-4 mr-2" />
+                Sign Out
+              </Button>
+            )}
           </div>
         </div>
       </div>
