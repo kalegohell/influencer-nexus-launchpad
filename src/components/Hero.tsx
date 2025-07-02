@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
@@ -6,10 +7,128 @@ import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { ArrowDown, TrendingUp, Users } from 'lucide-react';
 import { useCountUp } from '@/hooks/useCountUp';
+import { useToast } from '@/hooks/use-toast';
+import { supabase } from '@/integrations/supabase/client';
+import { useNavigate } from 'react-router-dom';
 
 const Hero = () => {
   const [brandOnboardingOpen, setBrandOnboardingOpen] = useState(false);
   const [influencerOnboardingOpen, setInfluencerOnboardingOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const { toast } = useToast();
+  const navigate = useNavigate();
+
+  // Brand signup form state
+  const [brandForm, setBrandForm] = useState({
+    company: '',
+    industry: '',
+    budget: '',
+    email: '',
+    password: '',
+    fullName: ''
+  });
+
+  // Influencer signup form state
+  const [influencerForm, setInfluencerForm] = useState({
+    name: '',
+    niche: '',
+    followers: '',
+    instagram: '',
+    email: '',
+    password: ''
+  });
+
+  const handleBrandSignup = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsLoading(true);
+
+    try {
+      const { error } = await supabase.auth.signUp({
+        email: brandForm.email,
+        password: brandForm.password,
+        options: {
+          emailRedirectTo: `${window.location.origin}/dashboard`,
+          data: {
+            full_name: brandForm.fullName || brandForm.company,
+            user_type: 'brand',
+            company: brandForm.company,
+            industry: brandForm.industry,
+            budget: brandForm.budget
+          }
+        }
+      });
+
+      if (error) throw error;
+
+      toast({
+        title: "Account Created Successfully!",
+        description: "Please check your email to verify your account before signing in.",
+      });
+
+      setBrandOnboardingOpen(false);
+      setBrandForm({ company: '', industry: '', budget: '', email: '', password: '', fullName: '' });
+      
+      // Redirect to auth page for login
+      setTimeout(() => {
+        navigate('/auth');
+      }, 2000);
+
+    } catch (error: any) {
+      toast({
+        title: "Signup Failed",
+        description: error.message || "Please try again.",
+        variant: "destructive"
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleInfluencerSignup = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsLoading(true);
+
+    try {
+      const { error } = await supabase.auth.signUp({
+        email: influencerForm.email,
+        password: influencerForm.password,
+        options: {
+          emailRedirectTo: `${window.location.origin}/dashboard`,
+          data: {
+            full_name: influencerForm.name,
+            user_type: 'influencer',
+            niche: influencerForm.niche,
+            followers: influencerForm.followers,
+            instagram: influencerForm.instagram
+          }
+        }
+      });
+
+      if (error) throw error;
+
+      toast({
+        title: "Application Submitted!",
+        description: "Please check your email to verify your account. We'll review your application and get back to you soon.",
+      });
+
+      setInfluencerOnboardingOpen(false);
+      setInfluencerForm({ name: '', niche: '', followers: '', instagram: '', email: '', password: '' });
+      
+      // Redirect to auth page for login
+      setTimeout(() => {
+        navigate('/auth');
+      }, 2000);
+
+    } catch (error: any) {
+      toast({
+        title: "Signup Failed",
+        description: error.message || "Please try again.",
+        variant: "destructive"
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   // Animated counters
   const activeBrands = useCountUp(5000, 2000, '+');
@@ -51,21 +170,35 @@ const Hero = () => {
               <DialogContent className="bg-white border border-gray-200 shadow-2xl max-w-md mx-4 rounded-2xl">
                 <DialogHeader>
                   <DialogTitle className="text-gray-900 text-xl md:text-2xl font-bold">
-                    Brand Onboarding
+                    Create Brand Account
                   </DialogTitle>
                 </DialogHeader>
-                <div className="space-y-4 p-2">
+                <form onSubmit={handleBrandSignup} className="space-y-4 p-2">
+                  <div className="space-y-2">
+                    <Label htmlFor="brand-name" className="text-gray-700 font-medium">Full Name</Label>
+                    <Input 
+                      id="brand-name" 
+                      value={brandForm.fullName}
+                      onChange={(e) => setBrandForm({...brandForm, fullName: e.target.value})}
+                      className="bg-white border-gray-300 text-gray-900 focus:border-blue-500 focus:ring-blue-500/20 rounded-lg h-11" 
+                      placeholder="Enter your full name"
+                      required
+                    />
+                  </div>
                   <div className="space-y-2">
                     <Label htmlFor="company" className="text-gray-700 font-medium">Company Name</Label>
                     <Input 
                       id="company" 
+                      value={brandForm.company}
+                      onChange={(e) => setBrandForm({...brandForm, company: e.target.value})}
                       className="bg-white border-gray-300 text-gray-900 focus:border-blue-500 focus:ring-blue-500/20 rounded-lg h-11" 
                       placeholder="Enter your company name"
+                      required
                     />
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="industry" className="text-gray-700 font-medium">Industry</Label>
-                    <Select>
+                    <Select value={brandForm.industry} onValueChange={(value) => setBrandForm({...brandForm, industry: value})}>
                       <SelectTrigger className="bg-white border-gray-300 text-gray-900 focus:border-blue-500 focus:ring-blue-500/20 rounded-lg h-11">
                         <SelectValue placeholder="Select your industry" />
                       </SelectTrigger>
@@ -80,7 +213,7 @@ const Hero = () => {
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="budget" className="text-gray-700 font-medium">Monthly Budget</Label>
-                    <Select>
+                    <Select value={brandForm.budget} onValueChange={(value) => setBrandForm({...brandForm, budget: value})}>
                       <SelectTrigger className="bg-white border-gray-300 text-gray-900 focus:border-blue-500 focus:ring-blue-500/20 rounded-lg h-11">
                         <SelectValue placeholder="Select budget range" />
                       </SelectTrigger>
@@ -93,18 +226,38 @@ const Hero = () => {
                     </Select>
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="email" className="text-gray-700 font-medium">Work Email</Label>
+                    <Label htmlFor="brand-email" className="text-gray-700 font-medium">Work Email</Label>
                     <Input 
-                      id="email" 
+                      id="brand-email" 
                       type="email" 
+                      value={brandForm.email}
+                      onChange={(e) => setBrandForm({...brandForm, email: e.target.value})}
                       className="bg-white border-gray-300 text-gray-900 focus:border-blue-500 focus:ring-blue-500/20 rounded-lg h-11" 
                       placeholder="your@company.com"
+                      required
                     />
                   </div>
-                  <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white h-11 rounded-lg font-semibold transition-colors duration-200">
-                    Get Free Strategy Call
+                  <div className="space-y-2">
+                    <Label htmlFor="brand-password" className="text-gray-700 font-medium">Password</Label>
+                    <Input 
+                      id="brand-password" 
+                      type="password" 
+                      value={brandForm.password}
+                      onChange={(e) => setBrandForm({...brandForm, password: e.target.value})}
+                      className="bg-white border-gray-300 text-gray-900 focus:border-blue-500 focus:ring-blue-500/20 rounded-lg h-11" 
+                      placeholder="Create a password"
+                      required
+                      minLength={6}
+                    />
+                  </div>
+                  <Button 
+                    type="submit" 
+                    className="w-full bg-blue-600 hover:bg-blue-700 text-white h-11 rounded-lg font-semibold transition-colors duration-200"
+                    disabled={isLoading}
+                  >
+                    {isLoading ? "Creating Account..." : "Create Brand Account"}
                   </Button>
-                </div>
+                </form>
               </DialogContent>
             </Dialog>
 
@@ -122,21 +275,24 @@ const Hero = () => {
               <DialogContent className="bg-white border border-gray-200 shadow-2xl max-w-md mx-4 rounded-2xl">
                 <DialogHeader>
                   <DialogTitle className="text-gray-900 text-xl md:text-2xl font-bold">
-                    Influencer Registration
+                    Apply as Influencer
                   </DialogTitle>
                 </DialogHeader>
-                <div className="space-y-4 p-2">
+                <form onSubmit={handleInfluencerSignup} className="space-y-4 p-2">
                   <div className="space-y-2">
                     <Label htmlFor="name" className="text-gray-700 font-medium">Full Name</Label>
                     <Input 
                       id="name" 
+                      value={influencerForm.name}
+                      onChange={(e) => setInfluencerForm({...influencerForm, name: e.target.value})}
                       className="bg-white border-gray-300 text-gray-900 focus:border-blue-500 focus:ring-blue-500/20 rounded-lg h-11" 
                       placeholder="Enter your full name"
+                      required
                     />
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="niche" className="text-gray-700 font-medium">Content Niche</Label>
-                    <Select>
+                    <Select value={influencerForm.niche} onValueChange={(value) => setInfluencerForm({...influencerForm, niche: value})}>
                       <SelectTrigger className="bg-white border-gray-300 text-gray-900 focus:border-blue-500 focus:ring-blue-500/20 rounded-lg h-11">
                         <SelectValue placeholder="Select your niche" />
                       </SelectTrigger>
@@ -151,7 +307,7 @@ const Hero = () => {
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="followers" className="text-gray-700 font-medium">Follower Count</Label>
-                    <Select>
+                    <Select value={influencerForm.followers} onValueChange={(value) => setInfluencerForm({...influencerForm, followers: value})}>
                       <SelectTrigger className="bg-white border-gray-300 text-gray-900 focus:border-blue-500 focus:ring-blue-500/20 rounded-lg h-11">
                         <SelectValue placeholder="Select range" />
                       </SelectTrigger>
@@ -167,14 +323,46 @@ const Hero = () => {
                     <Label htmlFor="instagram" className="text-gray-700 font-medium">Instagram Handle</Label>
                     <Input 
                       id="instagram" 
+                      value={influencerForm.instagram}
+                      onChange={(e) => setInfluencerForm({...influencerForm, instagram: e.target.value})}
                       placeholder="@yourusername" 
                       className="bg-white border-gray-300 text-gray-900 focus:border-blue-500 focus:ring-blue-500/20 rounded-lg h-11" 
+                      required
                     />
                   </div>
-                  <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white h-11 rounded-lg font-semibold transition-colors duration-200">
-                    Apply to Network
+                  <div className="space-y-2">
+                    <Label htmlFor="influencer-email" className="text-gray-700 font-medium">Email</Label>
+                    <Input 
+                      id="influencer-email" 
+                      type="email" 
+                      value={influencerForm.email}
+                      onChange={(e) => setInfluencerForm({...influencerForm, email: e.target.value})}
+                      className="bg-white border-gray-300 text-gray-900 focus:border-blue-500 focus:ring-blue-500/20 rounded-lg h-11" 
+                      placeholder="your@email.com"
+                      required
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="influencer-password" className="text-gray-700 font-medium">Password</Label>
+                    <Input 
+                      id="influencer-password" 
+                      type="password" 
+                      value={influencerForm.password}
+                      onChange={(e) => setInfluencerForm({...influencerForm, password: e.target.value})}
+                      className="bg-white border-gray-300 text-gray-900 focus:border-blue-500 focus:ring-blue-500/20 rounded-lg h-11" 
+                      placeholder="Create a password"
+                      required
+                      minLength={6}
+                    />
+                  </div>
+                  <Button 
+                    type="submit" 
+                    className="w-full bg-blue-600 hover:bg-blue-700 text-white h-11 rounded-lg font-semibold transition-colors duration-200"
+                    disabled={isLoading}
+                  >
+                    {isLoading ? "Submitting Application..." : "Apply to Network"}
                   </Button>
-                </div>
+                </form>
               </DialogContent>
             </Dialog>
           </div>

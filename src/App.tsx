@@ -33,32 +33,32 @@ const App = () => (
             </ProtectedRoute>
           } />
           <Route path="/campaigns" element={
-            <ProtectedRoute>
+            <ProtectedRoute requireUserType="brand">
               <Campaigns />
             </ProtectedRoute>
           } />
           <Route path="/influencers" element={
-            <ProtectedRoute>
+            <ProtectedRoute requireUserType="brand">
               <Influencers />
             </ProtectedRoute>
           } />
           <Route path="/analytics" element={
-            <ProtectedRoute>
+            <ProtectedRoute requireUserType="brand">
               <AnalyticsPage />
             </ProtectedRoute>
           } />
           <Route path="/admin" element={
-            <ProtectedRoute>
+            <ProtectedRoute requireUserType="admin">
               <Admin />
             </ProtectedRoute>
           } />
           <Route path="/admin/brands" element={
-            <ProtectedRoute>
+            <ProtectedRoute requireUserType="admin">
               <AdminBrands />
             </ProtectedRoute>
           } />
           <Route path="/admin/influencers" element={
-            <ProtectedRoute>
+            <ProtectedRoute requireUserType="admin">
               <AdminInfluencers />
             </ProtectedRoute>
           } />
