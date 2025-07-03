@@ -12,6 +12,7 @@ export const useAuth = () => {
     // Set up auth state listener
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       (event, session) => {
+        console.log('Auth state changed:', event, session?.user?.email);
         setSession(session);
         setUser(session?.user ?? null);
         setLoading(false);
@@ -20,6 +21,7 @@ export const useAuth = () => {
 
     // Get initial session
     supabase.auth.getSession().then(({ data: { session } }) => {
+      console.log('Initial session:', session?.user?.email);
       setSession(session);
       setUser(session?.user ?? null);
       setLoading(false);
@@ -30,11 +32,22 @@ export const useAuth = () => {
 
   const signOut = async () => {
     try {
-      await supabase.auth.signOut();
+      console.log('Starting sign out process');
+      
+      // Clear local state immediately
       setUser(null);
       setSession(null);
+      
+      // Sign out from Supabase
+      await supabase.auth.signOut();
+      
+      console.log('Sign out completed');
     } catch (error) {
       console.error('Error signing out:', error);
+      
+      // Force clear state even if signOut fails
+      setUser(null);
+      setSession(null);
     }
   };
 

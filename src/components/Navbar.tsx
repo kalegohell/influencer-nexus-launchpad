@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { TrendingUp, Menu, X, User, LogOut } from 'lucide-react';
@@ -29,8 +28,15 @@ const Navbar = () => {
   };
 
   const handleSignOut = async () => {
-    await signOut();
-    navigate('/');
+    try {
+      await signOut();
+      // Force a page refresh to ensure clean state
+      window.location.href = '/';
+    } catch (error) {
+      console.error('Error during sign out:', error);
+      // Force refresh even if there's an error
+      window.location.href = '/';
+    }
   };
 
   return (
