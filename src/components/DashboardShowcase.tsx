@@ -10,7 +10,7 @@ const DashboardShowcase = () => {
       id: 1,
       headline: "Activate AI-Powered Influencer Matching That Actually Works",
       subheadline: "Stop wasting time on mismatched partnerships. Our AI analyzes 50+ data points to find your perfect influencer matches in seconds.",
-      image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&h=500&fit=crop",
+      image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&h=500&fit=crop",
       stats: [
         { label: "Match Accuracy", value: "95%" },
         { label: "Time Saved", value: "20hrs/week" },
@@ -34,7 +34,7 @@ const DashboardShowcase = () => {
       id: 3,
       headline: "Amplify Your Reach with Verified Creator Network",
       subheadline: "Access our exclusive network of 50,000+ verified influencers across every niche. No fake followers, no bot engagement - just authentic creators.",
-      image: "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=800&h=500&fit=crop",
+      image: "https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?w=800&h=500&fit=crop",
       stats: [
         { label: "Verified Creators", value: "50K+" },
         { label: "Fraud Protection", value: "99.9%" },
