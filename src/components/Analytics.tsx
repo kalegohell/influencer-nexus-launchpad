@@ -1,4 +1,3 @@
-
 import React, { useState, useMemo } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -7,54 +6,144 @@ import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { LineChart, Line, AreaChart, Area, BarChart, Bar, PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
 import { Calendar, Filter, TrendingUp, Users, Eye, Heart, DollarSign, Target, Download } from 'lucide-react';
-
 const Analytics = () => {
   const [timeRange, setTimeRange] = useState('6months');
   const [campaignFilter, setCampaignFilter] = useState('all');
   const [influencerType, setInfluencerType] = useState('all');
 
   // Mock data - in real app, this would come from API
-  const performanceData = [
-    { month: 'Jan', engagement: 4000, reach: 24000, conversions: 800, revenue: 12000, clicks: 3200 },
-    { month: 'Feb', engagement: 5200, reach: 32000, conversions: 1200, revenue: 18000, clicks: 4100 },
-    { month: 'Mar', engagement: 6800, reach: 45000, conversions: 1800, revenue: 27000, clicks: 5300 },
-    { month: 'Apr', engagement: 8400, reach: 58000, conversions: 2400, revenue: 36000, clicks: 6800 },
-    { month: 'May', engagement: 10200, reach: 72000, conversions: 3200, revenue: 48000, clicks: 8100 },
-    { month: 'Jun', engagement: 12800, reach: 89000, conversions: 4100, revenue: 61500, clicks: 9600 }
-  ];
-
-  const campaignROIData = [
-    { name: 'Fashion Week', spend: 15000, revenue: 180000, roi: 12, impressions: 2400000 },
-    { name: 'Summer Launch', spend: 22000, revenue: 286000, roi: 13, impressions: 3200000 },
-    { name: 'Back to School', spend: 18000, revenue: 234000, roi: 13, impressions: 2800000 },
-    { name: 'Holiday 2024', spend: 25000, revenue: 375000, roi: 15, impressions: 4100000 }
-  ];
-
-  const influencerTypeData = [
-    { name: 'Micro', value: 45, color: '#3B82F6' },
-    { name: 'Macro', value: 35, color: '#10B981' },
-    { name: 'Mega', value: 20, color: '#F59E0B' }
-  ];
-
-  const platformData = [
-    { platform: 'Instagram', reach: 45000, engagement: 8200, conversions: 1800 },
-    { platform: 'TikTok', reach: 38000, engagement: 7800, conversions: 1600 },
-    { platform: 'YouTube', reach: 28000, engagement: 5400, conversions: 1200 },
-    { platform: 'Twitter', reach: 22000, engagement: 3600, conversions: 800 }
-  ];
-
-  const topInfluencers = [
-    { name: 'Sarah Ahmed', followers: '125K', engagement: '5.2%', revenue: '$12.5K', campaigns: 3 },
-    { name: 'Ali Hassan', followers: '89K', engagement: '4.8%', revenue: '$9.8K', campaigns: 2 },
-    { name: 'Fatima Khan', followers: '156K', engagement: '4.1%', revenue: '$15.2K', campaigns: 4 },
-    { name: 'Omar Ali', followers: '203K', engagement: '3.9%', revenue: '$18.7K', campaigns: 5 }
-  ];
+  const performanceData = [{
+    month: 'Jan',
+    engagement: 4000,
+    reach: 24000,
+    conversions: 800,
+    revenue: 12000,
+    clicks: 3200
+  }, {
+    month: 'Feb',
+    engagement: 5200,
+    reach: 32000,
+    conversions: 1200,
+    revenue: 18000,
+    clicks: 4100
+  }, {
+    month: 'Mar',
+    engagement: 6800,
+    reach: 45000,
+    conversions: 1800,
+    revenue: 27000,
+    clicks: 5300
+  }, {
+    month: 'Apr',
+    engagement: 8400,
+    reach: 58000,
+    conversions: 2400,
+    revenue: 36000,
+    clicks: 6800
+  }, {
+    month: 'May',
+    engagement: 10200,
+    reach: 72000,
+    conversions: 3200,
+    revenue: 48000,
+    clicks: 8100
+  }, {
+    month: 'Jun',
+    engagement: 12800,
+    reach: 89000,
+    conversions: 4100,
+    revenue: 61500,
+    clicks: 9600
+  }];
+  const campaignROIData = [{
+    name: 'Fashion Week',
+    spend: 15000,
+    revenue: 180000,
+    roi: 12,
+    impressions: 2400000
+  }, {
+    name: 'Summer Launch',
+    spend: 22000,
+    revenue: 286000,
+    roi: 13,
+    impressions: 3200000
+  }, {
+    name: 'Back to School',
+    spend: 18000,
+    revenue: 234000,
+    roi: 13,
+    impressions: 2800000
+  }, {
+    name: 'Holiday 2024',
+    spend: 25000,
+    revenue: 375000,
+    roi: 15,
+    impressions: 4100000
+  }];
+  const influencerTypeData = [{
+    name: 'Micro',
+    value: 45,
+    color: '#3B82F6'
+  }, {
+    name: 'Macro',
+    value: 35,
+    color: '#10B981'
+  }, {
+    name: 'Mega',
+    value: 20,
+    color: '#F59E0B'
+  }];
+  const platformData = [{
+    platform: 'Instagram',
+    reach: 45000,
+    engagement: 8200,
+    conversions: 1800
+  }, {
+    platform: 'TikTok',
+    reach: 38000,
+    engagement: 7800,
+    conversions: 1600
+  }, {
+    platform: 'YouTube',
+    reach: 28000,
+    engagement: 5400,
+    conversions: 1200
+  }, {
+    platform: 'Twitter',
+    reach: 22000,
+    engagement: 3600,
+    conversions: 800
+  }];
+  const topInfluencers = [{
+    name: 'Sarah Ahmed',
+    followers: '125K',
+    engagement: '5.2%',
+    revenue: '$12.5K',
+    campaigns: 3
+  }, {
+    name: 'Ali Hassan',
+    followers: '89K',
+    engagement: '4.8%',
+    revenue: '$9.8K',
+    campaigns: 2
+  }, {
+    name: 'Fatima Khan',
+    followers: '156K',
+    engagement: '4.1%',
+    revenue: '$15.2K',
+    campaigns: 4
+  }, {
+    name: 'Omar Ali',
+    followers: '203K',
+    engagement: '3.9%',
+    revenue: '$18.7K',
+    campaigns: 5
+  }];
 
   // Calculate key metrics
   const totalMetrics = useMemo(() => {
     const latest = performanceData[performanceData.length - 1];
     const previous = performanceData[performanceData.length - 2];
-    
     return {
       totalReach: latest.reach,
       reachGrowth: ((latest.reach - previous.reach) / previous.reach * 100).toFixed(1),
@@ -65,25 +154,24 @@ const Analytics = () => {
       avgROI: (campaignROIData.reduce((sum, campaign) => sum + campaign.roi, 0) / campaignROIData.length).toFixed(1)
     };
   }, [performanceData, campaignROIData]);
-
-  const CustomTooltip = ({ active, payload, label }: any) => {
+  const CustomTooltip = ({
+    active,
+    payload,
+    label
+  }: any) => {
     if (active && payload && payload.length) {
-      return (
-        <div className="bg-white p-3 border border-gray-200 rounded-lg shadow-lg">
+      return <div className="bg-white p-3 border border-gray-200 rounded-lg shadow-lg">
           <p className="font-medium text-gray-900">{label}</p>
-          {payload.map((entry: any, index: number) => (
-            <p key={index} className="text-sm" style={{ color: entry.color }}>
+          {payload.map((entry: any, index: number) => <p key={index} className="text-sm" style={{
+          color: entry.color
+        }}>
               {entry.name}: {entry.value.toLocaleString()}
-            </p>
-          ))}
-        </div>
-      );
+            </p>)}
+        </div>;
     }
     return null;
   };
-
-  return (
-    <div className="min-h-screen bg-gray-50 p-6">
+  return <div className="min-h-screen bg-gray-50 p-6">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="mb-8">
@@ -99,52 +187,7 @@ const Analytics = () => {
           </div>
 
           {/* Filters */}
-          <div className="flex flex-wrap gap-4 p-4 bg-white rounded-lg border border-gray-200">
-            <div className="flex items-center gap-2">
-              <Calendar className="h-4 w-4 text-gray-500" />
-              <Select value={timeRange} onValueChange={setTimeRange}>
-                <SelectTrigger className="w-40">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="30days">Last 30 Days</SelectItem>
-                  <SelectItem value="3months">Last 3 Months</SelectItem>
-                  <SelectItem value="6months">Last 6 Months</SelectItem>
-                  <SelectItem value="1year">Last Year</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-
-            <div className="flex items-center gap-2">
-              <Filter className="h-4 w-4 text-gray-500" />
-              <Select value={campaignFilter} onValueChange={setCampaignFilter}>
-                <SelectTrigger className="w-40">
-                  <SelectValue placeholder="All Campaigns" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">All Campaigns</SelectItem>
-                  <SelectItem value="active">Active Only</SelectItem>
-                  <SelectItem value="completed">Completed</SelectItem>
-                  <SelectItem value="pending">Pending</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-
-            <div className="flex items-center gap-2">
-              <Users className="h-4 w-4 text-gray-500" />
-              <Select value={influencerType} onValueChange={setInfluencerType}>
-                <SelectTrigger className="w-40">
-                  <SelectValue placeholder="All Influencers" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">All Types</SelectItem>
-                  <SelectItem value="micro">Micro (1K-100K)</SelectItem>
-                  <SelectItem value="macro">Macro (100K-1M)</SelectItem>
-                  <SelectItem value="mega">Mega (1M+)</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-          </div>
+          
         </div>
 
         {/* Key Metrics */}
@@ -276,15 +319,13 @@ const Analytics = () => {
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-4">
-                    {campaignROIData.map((campaign, index) => (
-                      <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                    {campaignROIData.map((campaign, index) => <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
                         <div>
                           <p className="font-medium text-gray-900">{campaign.name}</p>
                           <p className="text-sm text-gray-500">ROI: {campaign.roi}x</p>
                         </div>
                         <Badge variant="secondary">${campaign.revenue.toLocaleString()}</Badge>
-                      </div>
-                    ))}
+                      </div>)}
                   </div>
                 </CardContent>
               </Card>
@@ -300,18 +341,8 @@ const Analytics = () => {
                 <CardContent>
                   <ResponsiveContainer width="100%" height={250}>
                     <PieChart>
-                      <Pie
-                        data={influencerTypeData}
-                        cx="50%"
-                        cy="50%"
-                        innerRadius={40}
-                        outerRadius={80}
-                        paddingAngle={5}
-                        dataKey="value"
-                      >
-                        {influencerTypeData.map((entry, index) => (
-                          <Cell key={`cell-${index}`} fill={entry.color} />
-                        ))}
+                      <Pie data={influencerTypeData} cx="50%" cy="50%" innerRadius={40} outerRadius={80} paddingAngle={5} dataKey="value">
+                        {influencerTypeData.map((entry, index) => <Cell key={`cell-${index}`} fill={entry.color} />)}
                       </Pie>
                       <Tooltip />
                       <Legend />
@@ -326,8 +357,7 @@ const Analytics = () => {
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-4">
-                    {topInfluencers.map((influencer, index) => (
-                      <div key={index} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+                    {topInfluencers.map((influencer, index) => <div key={index} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
                         <div className="flex items-center space-x-3">
                           <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-500 rounded-full flex items-center justify-center">
                             <span className="text-white font-medium text-sm">
@@ -343,8 +373,7 @@ const Analytics = () => {
                           <p className="text-sm font-medium text-green-600">{influencer.engagement}</p>
                           <p className="text-xs text-gray-500">{influencer.revenue}</p>
                         </div>
-                      </div>
-                    ))}
+                      </div>)}
                   </div>
                 </CardContent>
               </Card>
@@ -373,8 +402,6 @@ const Analytics = () => {
           </TabsContent>
         </Tabs>
       </div>
-    </div>
-  );
+    </div>;
 };
-
 export default Analytics;
