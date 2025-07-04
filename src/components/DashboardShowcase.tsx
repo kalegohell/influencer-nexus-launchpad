@@ -2,7 +2,7 @@
 import React from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, BarChart3, Users, Target, Zap } from 'lucide-react';
+import { ArrowRight, BarChart3, Users, Target } from 'lucide-react';
 
 const DashboardShowcase = () => {
   const showcaseItems = [
@@ -10,7 +10,6 @@ const DashboardShowcase = () => {
       id: 1,
       headline: "Activate AI-Powered Influencer Matching That Actually Works",
       subheadline: "Stop wasting time on mismatched partnerships. Our AI analyzes 50+ data points to find your perfect influencer matches in seconds.",
-      image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&h=500&fit=crop",
       stats: [
         { label: "Match Accuracy", value: "95%" },
         { label: "Time Saved", value: "20hrs/week" },
@@ -22,7 +21,6 @@ const DashboardShowcase = () => {
       id: 2,
       headline: "Accelerate Campaign Performance with Real-Time Analytics",
       subheadline: "Watch your campaigns come alive with instant metrics. Track engagement, conversions, and ROI as they happen - not days later.",
-      image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=800&h=500&fit=crop",
       stats: [
         { label: "Live Tracking", value: "24/7" },
         { label: "Data Points", value: "100+" },
@@ -34,7 +32,6 @@ const DashboardShowcase = () => {
       id: 3,
       headline: "Amplify Your Reach with Verified Creator Network",
       subheadline: "Access our exclusive network of 50,000+ verified influencers across every niche. No fake followers, no bot engagement - just authentic creators.",
-      image: "https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?w=800&h=500&fit=crop",
       stats: [
         { label: "Verified Creators", value: "50K+" },
         { label: "Fraud Protection", value: "99.9%" },
@@ -57,68 +54,51 @@ const DashboardShowcase = () => {
           </h2>
           <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
             See how leading brands are transforming their influencer marketing with our intelligent platform. 
-            These are real dashboards from real campaigns generating real results.
+            These features deliver real results for real campaigns.
           </p>
         </div>
 
         {/* Showcase Items */}
-        <div className="space-y-20 md:space-y-24">
+        <div className="space-y-16 md:space-y-20">
           {showcaseItems.map((item, index) => (
-            <div key={item.id} className={`flex flex-col ${index % 2 === 1 ? 'lg:flex-row-reverse' : 'lg:flex-row'} items-center gap-8 lg:gap-16`}>
-              {/* Content */}
-              <div className="flex-1 space-y-6">
-                <div className="flex items-center space-x-3">
-                  <div className="text-blue-600 p-2 bg-blue-50 rounded-lg">
-                    {item.icon}
-                  </div>
-                  <span className="text-sm font-semibold text-blue-600 uppercase tracking-wide">
-                    Dashboard Preview
-                  </span>
-                </div>
-                <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 leading-tight">
-                  {item.headline}
-                </h3>
-                <p className="text-lg text-gray-600 leading-relaxed">
-                  {item.subheadline}
-                </p>
-                
-                {/* Stats */}
-                <div className="grid grid-cols-3 gap-4 pt-4">
-                  {item.stats.map((stat, statIndex) => (
-                    <div key={statIndex} className="text-center">
-                      <div className="text-xl md:text-2xl font-bold text-gray-900">{stat.value}</div>
-                      <div className="text-sm text-gray-600">{stat.label}</div>
-                    </div>
-                  ))}
-                </div>
-
-                <Button className="bg-blue-600 hover:bg-blue-700 text-white inline-flex items-center space-x-2">
-                  <span>See Full Dashboard</span>
-                  <ArrowRight className="w-4 h-4" />
-                </Button>
-              </div>
-
-              {/* Dashboard Screenshot */}
-              <div className="flex-1">
-                <Card className="bg-white border border-gray-200 shadow-2xl rounded-2xl overflow-hidden transform hover:scale-105 transition-transform duration-300">
-                  <CardContent className="p-0">
-                    <img 
-                      src={item.image} 
-                      alt={`Dashboard preview ${item.id}`}
-                      className="w-full h-64 md:h-80 object-cover"
-                    />
-                    <div className="p-6 bg-gradient-to-r from-blue-50 to-indigo-50">
-                      <div className="flex items-center justify-between">
-                        <span className="text-sm font-medium text-gray-600">Live Dashboard</span>
-                        <div className="flex items-center space-x-2">
-                          <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-                          <span className="text-sm text-green-600 font-medium">Active</span>
-                        </div>
+            <div key={item.id} className="max-w-4xl mx-auto">
+              <Card className="bg-white border border-gray-200 shadow-lg rounded-2xl overflow-hidden">
+                <CardContent className="p-8 md:p-12">
+                  <div className="text-center space-y-6">
+                    <div className="flex items-center justify-center space-x-3 mb-6">
+                      <div className="text-blue-600 p-3 bg-blue-50 rounded-xl">
+                        {item.icon}
                       </div>
+                      <span className="text-sm font-semibold text-blue-600 uppercase tracking-wide">
+                        Feature Highlight
+                      </span>
                     </div>
-                  </CardContent>
-                </Card>
-              </div>
+                    
+                    <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 leading-tight">
+                      {item.headline}
+                    </h3>
+                    
+                    <p className="text-lg text-gray-600 leading-relaxed max-w-2xl mx-auto">
+                      {item.subheadline}
+                    </p>
+                    
+                    {/* Stats */}
+                    <div className="grid grid-cols-3 gap-8 pt-8 mb-8">
+                      {item.stats.map((stat, statIndex) => (
+                        <div key={statIndex} className="text-center">
+                          <div className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">{stat.value}</div>
+                          <div className="text-sm text-gray-600">{stat.label}</div>
+                        </div>
+                      ))}
+                    </div>
+
+                    <Button className="bg-blue-600 hover:bg-blue-700 text-white inline-flex items-center space-x-2">
+                      <span>Learn More</span>
+                      <ArrowRight className="w-4 h-4" />
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
             </div>
           ))}
         </div>
