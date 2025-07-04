@@ -2,7 +2,10 @@
 import React from 'react';
 import Hero from '../components/Hero';
 import Features from '../components/Features';
+import DashboardShowcase from '../components/DashboardShowcase';
+import ProcessSteps from '../components/ProcessSteps';
 import Analytics from '../components/Analytics';
+import ROICalculator from '../components/ROICalculator';
 import Testimonials from '../components/Testimonials';
 import CTA from '../components/CTA';
 import Footer from '../components/Footer';
@@ -14,7 +17,10 @@ const Index = () => {
       <Navbar />
       <Hero />
       <Features />
+      <DashboardShowcase />
+      <ProcessSteps />
       <Analytics />
+      <ROICalculator />
       <Testimonials />
       <CTA />
       <Footer />
