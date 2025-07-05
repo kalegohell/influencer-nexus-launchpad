@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -169,15 +168,14 @@ const Auth = () => {
                   </Button>
                 </form>
                 
-                {/* Quick Admin Login Helper */}
+                {/* Admin Login Info */}
                 <div className="mt-4 p-3 bg-blue-50 rounded-lg">
                   <p className="text-sm text-blue-800 mb-2">
-                    <strong>Quick Admin Setup:</strong>
+                    <strong>Admin Login:</strong>
                   </p>
                   <p className="text-xs text-blue-600">
-                    1. Sign up with any email/password<br/>
-                    2. Use the Admin Helper below to make yourself admin<br/>
-                    3. Then login with your credentials
+                    Email: kalegohell@gmail.com<br/>
+                    Password: AdminPass123!
                   </p>
                 </div>
               </TabsContent>
@@ -251,7 +249,7 @@ const Auth = () => {
           </CardContent>
         </Card>
 
-        {/* Admin Helper Component */}
+        {/* Simplified Admin Helper Component */}
         <AdminSignupHelper />
 
         <div className="text-center mt-6">
