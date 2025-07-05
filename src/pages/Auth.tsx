@@ -9,6 +9,7 @@ import { TrendingUp, Mail, Lock, User } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
 import { useNavigate } from 'react-router-dom';
+import AdminSignupHelper from '@/components/AdminSignupHelper';
 
 const Auth = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -167,6 +168,18 @@ const Auth = () => {
                     {isLoading ? "Signing in..." : "Sign In"}
                   </Button>
                 </form>
+                
+                {/* Quick Admin Login Helper */}
+                <div className="mt-4 p-3 bg-blue-50 rounded-lg">
+                  <p className="text-sm text-blue-800 mb-2">
+                    <strong>Quick Admin Setup:</strong>
+                  </p>
+                  <p className="text-xs text-blue-600">
+                    1. Sign up with any email/password<br/>
+                    2. Use the Admin Helper below to make yourself admin<br/>
+                    3. Then login with your credentials
+                  </p>
+                </div>
               </TabsContent>
 
               <TabsContent value="signup" className="space-y-4 mt-6">
@@ -237,6 +250,9 @@ const Auth = () => {
             </Tabs>
           </CardContent>
         </Card>
+
+        {/* Admin Helper Component */}
+        <AdminSignupHelper />
 
         <div className="text-center mt-6">
           <Button 
