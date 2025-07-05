@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -8,7 +9,6 @@ import { TrendingUp, Mail, Lock, User } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
 import { useNavigate } from 'react-router-dom';
-import AdminSignupHelper from '@/components/AdminSignupHelper';
 
 const Auth = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -32,19 +32,60 @@ const Auth = () => {
     checkUser();
   }, [navigate]);
 
+  const createAdminUser = async () => {
+    try {
+      // First, try to sign up the admin user
+      const { data, error: signupError } = await supabase.auth.signUp({
+        email: 'kalegohell@gmail.com',
+        password: 'AdminPass123!',
+        options: {
+          emailRedirectTo: `${window.location.origin}/dashboard`,
+          data: {
+            full_name: 'Admin User',
+            user_type: 'admin',
+          }
+        }
+      });
+
+      if (signupError && !signupError.message.includes('already registered')) {
+        throw signupError;
+      }
+
+      console.log('Admin user creation attempted:', data);
+      
+      toast({
+        title: "Admin Setup",
+        description: "Admin user has been set up. You can now log in.",
+      });
+
+    } catch (error: any) {
+      console.error('Error creating admin user:', error);
+      toast({
+        title: "Admin Setup Error",
+        description: error.message || "Failed to set up admin user.",
+        variant: "destructive"
+      });
+    }
+  };
+
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
 
     try {
-      const { error } = await supabase.auth.signInWithPassword({
+      console.log('Attempting login for:', loginEmail);
+      
+      const { data, error } = await supabase.auth.signInWithPassword({
         email: loginEmail,
         password: loginPassword,
       });
 
       if (error) {
+        console.error('Login error:', error);
         throw error;
       }
+
+      console.log('Login successful:', data);
 
       toast({
         title: "Login Successful",
@@ -53,6 +94,7 @@ const Auth = () => {
 
       navigate('/dashboard');
     } catch (error: any) {
+      console.error('Login failed:', error);
       toast({
         title: "Login Failed",
         description: error.message || "Please check your credentials and try again.",
@@ -168,15 +210,31 @@ const Auth = () => {
                   </Button>
                 </form>
                 
-                {/* Admin Login Info */}
-                <div className="mt-4 p-3 bg-blue-50 rounded-lg">
-                  <p className="text-sm text-blue-800 mb-2">
-                    <strong>Admin Login:</strong>
-                  </p>
-                  <p className="text-xs text-blue-600">
-                    Email: kalegohell@gmail.com<br/>
-                    Password: AdminPass123!
-                  </p>
+                {/* Admin Setup Section */}
+                <div className="mt-6 space-y-4">
+                  <div className="border-t pt-4">
+                    <div className="text-center mb-3">
+                      <p className="text-sm text-gray-600 mb-2">Need admin access?</p>
+                      <Button 
+                        onClick={createAdminUser}
+                        variant="outline" 
+                        size="sm"
+                        className="mb-3"
+                      >
+                        Set Up Admin Account
+                      </Button>
+                    </div>
+                    
+                    <div className="p-3 bg-blue-50 rounded-lg">
+                      <p className="text-sm text-blue-800 mb-2">
+                        <strong>Admin Credentials:</strong>
+                      </p>
+                      <p className="text-xs text-blue-600">
+                        Email: kalegohell@gmail.com<br/>
+                        Password: AdminPass123!
+                      </p>
+                    </div>
+                  </div>
                 </div>
               </TabsContent>
 
@@ -248,9 +306,6 @@ const Auth = () => {
             </Tabs>
           </CardContent>
         </Card>
-
-        {/* Simplified Admin Helper Component */}
-        <AdminSignupHelper />
 
         <div className="text-center mt-6">
           <Button 
