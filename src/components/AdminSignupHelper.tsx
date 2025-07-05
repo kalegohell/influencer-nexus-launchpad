@@ -25,7 +25,7 @@ const AdminSignupHelper = () => {
 
     setIsLoading(true);
     try {
-      const { error } = await supabase.rpc('make_user_admin', {
+      const { error } = await supabase.rpc('make_user_admin' as any, {
         user_email: email
       });
 
