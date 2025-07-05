@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -25,7 +24,7 @@ const AdminSignupHelper = () => {
 
     setIsLoading(true);
     try {
-      const { error } = await supabase.rpc('make_user_admin' as any, {
+      const { error } = await (supabase as any).rpc('make_user_admin', {
         user_email: email
       });
 
