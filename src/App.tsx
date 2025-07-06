@@ -27,9 +27,15 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/auth" element={<Auth />} />
+          <Route path="/apply-influencer" element={<InfluencerApplication />} />
           <Route path="/dashboard" element={
             <ProtectedRoute>
               <Dashboard />
+            </ProtectedRoute>
+          } />
+          <Route path="/brand-dashboard" element={
+            <ProtectedRoute requireUserType="brand">
+              <BrandDashboard />
             </ProtectedRoute>
           } />
           <Route path="/campaigns" element={
@@ -45,6 +51,11 @@ const App = () => (
           <Route path="/analytics" element={
             <ProtectedRoute requireUserType="brand">
               <AnalyticsPage />
+            </ProtectedRoute>
+          } />
+          <Route path="/influencer-restricted" element={
+            <ProtectedRoute requireUserType="influencer">
+              <InfluencerRestricted />
             </ProtectedRoute>
           } />
           <Route path="/admin" element={

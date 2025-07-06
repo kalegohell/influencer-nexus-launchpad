@@ -9,6 +9,179 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      campaigns: {
+        Row: {
+          brand_id: string
+          budget: number | null
+          campaign_goals: string | null
+          content_type: string | null
+          created_at: string | null
+          description: string | null
+          duration: number | null
+          id: string
+          influencer_type: string | null
+          kpis: string | null
+          platforms: string | null
+          status: string | null
+          target_audience: string | null
+          timeline: string | null
+          title: string
+          updated_at: string | null
+        }
+        Insert: {
+          brand_id: string
+          budget?: number | null
+          campaign_goals?: string | null
+          content_type?: string | null
+          created_at?: string | null
+          description?: string | null
+          duration?: number | null
+          id?: string
+          influencer_type?: string | null
+          kpis?: string | null
+          platforms?: string | null
+          status?: string | null
+          target_audience?: string | null
+          timeline?: string | null
+          title: string
+          updated_at?: string | null
+        }
+        Update: {
+          brand_id?: string
+          budget?: number | null
+          campaign_goals?: string | null
+          content_type?: string | null
+          created_at?: string | null
+          description?: string | null
+          duration?: number | null
+          id?: string
+          influencer_type?: string | null
+          kpis?: string | null
+          platforms?: string | null
+          status?: string | null
+          target_audience?: string | null
+          timeline?: string | null
+          title?: string
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      influencer_applications: {
+        Row: {
+          bio: string | null
+          created_at: string | null
+          email: string
+          engagement_rate: number | null
+          follower_count: number | null
+          full_name: string
+          id: string
+          location: string | null
+          niche: string | null
+          phone: string | null
+          portfolio_url: string | null
+          social_media_handles: Json | null
+          status: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          bio?: string | null
+          created_at?: string | null
+          email: string
+          engagement_rate?: number | null
+          follower_count?: number | null
+          full_name: string
+          id?: string
+          location?: string | null
+          niche?: string | null
+          phone?: string | null
+          portfolio_url?: string | null
+          social_media_handles?: Json | null
+          status?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          bio?: string | null
+          created_at?: string | null
+          email?: string
+          engagement_rate?: number | null
+          follower_count?: number | null
+          full_name?: string
+          id?: string
+          location?: string | null
+          niche?: string | null
+          phone?: string | null
+          portfolio_url?: string | null
+          social_media_handles?: Json | null
+          status?: string | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      influencers: {
+        Row: {
+          application_id: string | null
+          bio: string | null
+          created_at: string | null
+          email: string
+          engagement_rate: number | null
+          follower_count: number | null
+          full_name: string
+          id: string
+          is_active: boolean | null
+          location: string | null
+          niche: string | null
+          phone: string | null
+          portfolio_url: string | null
+          social_media_handles: Json | null
+          updated_at: string | null
+          user_id: string | null
+        }
+        Insert: {
+          application_id?: string | null
+          bio?: string | null
+          created_at?: string | null
+          email: string
+          engagement_rate?: number | null
+          follower_count?: number | null
+          full_name: string
+          id?: string
+          is_active?: boolean | null
+          location?: string | null
+          niche?: string | null
+          phone?: string | null
+          portfolio_url?: string | null
+          social_media_handles?: Json | null
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          application_id?: string | null
+          bio?: string | null
+          created_at?: string | null
+          email?: string
+          engagement_rate?: number | null
+          follower_count?: number | null
+          full_name?: string
+          id?: string
+          is_active?: boolean | null
+          location?: string | null
+          niche?: string | null
+          phone?: string | null
+          portfolio_url?: string | null
+          social_media_handles?: Json | null
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "influencers_application_id_fkey"
+            columns: ["application_id"]
+            isOneToOne: false
+            referencedRelation: "influencer_applications"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       profiles: {
         Row: {
           avatar_url: string | null

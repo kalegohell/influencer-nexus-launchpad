@@ -35,9 +35,25 @@ const ProtectedRoute = ({ children, requireUserType }: ProtectedRouteProps) => {
           
           setUserProfile(data);
           
-          // Check if user has required type
-          if (data.user_type !== requireUserType) {
-            navigate('/dashboard');
+          // Handle user type restrictions
+          if (requireUserType === 'influencer') {
+            // Influencers should be redirected to restricted page
+            navigate('/influencer-restricted');
+          } else if (requireUserType === 'brand' && data.user_type === 'brand') {
+            // Brands can access brand-specific routes - allow access
+          } else if (requireUserType === 'admin' && data.user_type === 'admin') {
+            // Admins can access admin routes - allow access  
+          } else if (data.user_type !== requireUserType) {
+            // Redirect to appropriate dashboard based on user type
+            if (data.user_type === 'admin') {
+              navigate('/admin');
+            } else if (data.user_type === 'brand') {
+              navigate('/brand-dashboard');
+            } else if (data.user_type === 'influencer') {
+              navigate('/influencer-restricted');
+            } else {
+              navigate('/dashboard');
+            }
           }
         } catch (error) {
           console.error('Error fetching user profile:', error);
