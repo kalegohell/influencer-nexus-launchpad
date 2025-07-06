@@ -1,5 +1,4 @@
-
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
@@ -15,8 +14,17 @@ const Hero = () => {
   const [brandOnboardingOpen, setBrandOnboardingOpen] = useState(false);
   const [influencerOnboardingOpen, setInfluencerOnboardingOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
   const { toast } = useToast();
   const navigate = useNavigate();
+
+  // Trigger animations when component mounts
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsVisible(true);
+    }, 100);
+    return () => clearTimeout(timer);
+  }, []);
 
   // Brand signup form state
   const [brandForm, setBrandForm] = useState({
@@ -137,11 +145,13 @@ const Hero = () => {
   const averageROI = useCountUp(12, 1800, 'x');
 
   return (
-    <section className="pt-20 md:pt-28 pb-12 md:pb-20 px-4 sm:px-6 lg:px-8">
+    <section className="pt-20 md:pt-28 pb-12 md:pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
       <div className="max-w-6xl mx-auto">
         <div className="text-center">
-          {/* Headline */}
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-4 md:mb-6 leading-tight">
+          {/* Animated Headline */}
+          <h1 className={`text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-4 md:mb-6 leading-tight transition-all duration-1000 ${
+            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+          }`}>
             Scale Your Brand with
             <span className="bg-gradient-to-r from-blue-600 to-blue-700 bg-clip-text text-transparent">
               {" "}AI-Powered{" "}
@@ -149,19 +159,23 @@ const Hero = () => {
             Influencer Marketing
           </h1>
           
-          {/* Subheadline */}
-          <p className="text-lg sm:text-xl md:text-2xl text-gray-600 mb-8 md:mb-12 max-w-4xl mx-auto leading-relaxed px-4">
+          {/* Animated Subheadline */}
+          <p className={`text-lg sm:text-xl md:text-2xl text-gray-600 mb-8 md:mb-12 max-w-4xl mx-auto leading-relaxed px-4 transition-all duration-1000 delay-300 ${
+            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+          }`}>
             Connect with authentic influencers, track real-time performance, and achieve 10x ROI. 
             Join 5,000+ brands already dominating their markets.
           </p>
 
-          {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12 md:mb-16 px-4">
+          {/* Animated CTA Buttons */}
+          <div className={`flex flex-col sm:flex-row gap-4 justify-center items-center mb-12 md:mb-16 px-4 transition-all duration-1000 delay-500 ${
+            isVisible ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-8 scale-95'
+          }`}>
             <Dialog open={brandOnboardingOpen} onOpenChange={setBrandOnboardingOpen}>
               <DialogTrigger asChild>
                 <Button 
                   size="lg" 
-                  className="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white px-6 md:px-8 py-3 md:py-4 text-base md:text-lg font-semibold rounded-xl transition-all duration-200 shadow-lg hover:shadow-xl"
+                  className="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white px-6 md:px-8 py-3 md:py-4 text-base md:text-lg font-semibold rounded-xl transition-all duration-200 shadow-lg hover:shadow-xl hover:scale-105 transform"
                 >
                   <TrendingUp className="mr-2 w-5 h-5" />
                   Start as Brand
@@ -266,7 +280,7 @@ const Hero = () => {
                 <Button 
                   size="lg" 
                   variant="outline" 
-                  className="w-full sm:w-auto bg-white border-gray-300 text-gray-700 hover:bg-gray-50 hover:border-gray-400 px-6 md:px-8 py-3 md:py-4 text-base md:text-lg font-semibold rounded-xl transition-all duration-200"
+                  className="w-full sm:w-auto bg-white border-gray-300 text-gray-700 hover:bg-gray-50 hover:border-gray-400 px-6 md:px-8 py-3 md:py-4 text-base md:text-lg font-semibold rounded-xl transition-all duration-200 hover:scale-105 transform"
                 >
                   <Users className="mr-2 w-5 h-5" />
                   Join as Influencer
@@ -367,28 +381,32 @@ const Hero = () => {
             </Dialog>
           </div>
 
-          {/* Trust indicators */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 text-gray-600 mb-8 md:mb-12 max-w-4xl mx-auto">
-            <div className="text-center">
+          {/* Animated trust indicators */}
+          <div className={`grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 text-gray-600 mb-8 md:mb-12 max-w-4xl mx-auto transition-all duration-1000 delay-700 ${
+            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+          }`}>
+            <div className="text-center transform hover:scale-110 transition-transform duration-300">
               <div className="text-xl md:text-2xl font-bold text-gray-900">{activeBrands}</div>
               <div className="text-sm md:text-base">Active Brands</div>
             </div>
-            <div className="text-center">
+            <div className="text-center transform hover:scale-110 transition-transform duration-300">
               <div className="text-xl md:text-2xl font-bold text-gray-900">{verifiedInfluencers}</div>
               <div className="text-sm md:text-base">Verified Influencers</div>
             </div>
-            <div className="text-center">
+            <div className="text-center transform hover:scale-110 transition-transform duration-300">
               <div className="text-xl md:text-2xl font-bold text-gray-900">${campaignRevenue}</div>
               <div className="text-sm md:text-base">Campaign Revenue</div>
             </div>
-            <div className="text-center">
+            <div className="text-center transform hover:scale-110 transition-transform duration-300">
               <div className="text-xl md:text-2xl font-bold text-gray-900">{averageROI}</div>
               <div className="text-sm md:text-base">Average ROI</div>
             </div>
           </div>
 
-          {/* Scroll indicator */}
-          <div className="flex justify-center">
+          {/* Animated scroll indicator */}
+          <div className={`flex justify-center transition-all duration-1000 delay-900 ${
+            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+          }`}>
             <ArrowDown className="w-5 h-5 text-gray-400 animate-bounce" />
           </div>
         </div>
