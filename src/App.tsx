@@ -14,6 +14,9 @@ import Admin from "./pages/Admin";
 import AdminBrands from "./pages/AdminBrands";
 import AdminInfluencers from "./pages/AdminInfluencers";
 import NotFound from "./pages/NotFound";
+import InfluencerApplication from "./pages/InfluencerApplication";
+import BrandDashboard from "./pages/BrandDashboard";
+import InfluencerRestricted from "./pages/InfluencerRestricted";
 import ProtectedRoute from "./components/ProtectedRoute";
 
 const queryClient = new QueryClient();
