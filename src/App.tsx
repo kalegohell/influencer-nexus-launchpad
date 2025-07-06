@@ -5,7 +5,6 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
-import Auth from "./pages/Auth";
 import Dashboard from "./pages/Dashboard";
 import Campaigns from "./pages/Campaigns";
 import Influencers from "./pages/Influencers";
@@ -16,8 +15,6 @@ import AdminInfluencers from "./pages/AdminInfluencers";
 import NotFound from "./pages/NotFound";
 import InfluencerApplication from "./pages/InfluencerApplication";
 import BrandDashboard from "./pages/BrandDashboard";
-import InfluencerRestricted from "./pages/InfluencerRestricted";
-import ProtectedRoute from "./components/ProtectedRoute";
 
 const queryClient = new QueryClient();
 
@@ -29,54 +26,15 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
-          <Route path="/auth" element={<Auth />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/brand-dashboard" element={<BrandDashboard />} />
+          <Route path="/campaigns" element={<Campaigns />} />
+          <Route path="/influencers" element={<Influencers />} />
+          <Route path="/analytics" element={<AnalyticsPage />} />
           <Route path="/apply-influencer" element={<InfluencerApplication />} />
-          <Route path="/dashboard" element={
-            <ProtectedRoute>
-              <Dashboard />
-            </ProtectedRoute>
-          } />
-          <Route path="/brand-dashboard" element={
-            <ProtectedRoute requireUserType="brand">
-              <BrandDashboard />
-            </ProtectedRoute>
-          } />
-          <Route path="/campaigns" element={
-            <ProtectedRoute requireUserType="brand">
-              <Campaigns />
-            </ProtectedRoute>
-          } />
-          <Route path="/influencers" element={
-            <ProtectedRoute requireUserType="brand">
-              <Influencers />
-            </ProtectedRoute>
-          } />
-          <Route path="/analytics" element={
-            <ProtectedRoute requireUserType="brand">
-              <AnalyticsPage />
-            </ProtectedRoute>
-          } />
-          <Route path="/influencer-restricted" element={
-            <ProtectedRoute requireUserType="influencer">
-              <InfluencerRestricted />
-            </ProtectedRoute>
-          } />
-          <Route path="/admin" element={
-            <ProtectedRoute requireUserType="admin">
-              <Admin />
-            </ProtectedRoute>
-          } />
-          <Route path="/admin/brands" element={
-            <ProtectedRoute requireUserType="admin">
-              <AdminBrands />
-            </ProtectedRoute>
-          } />
-          <Route path="/admin/influencers" element={
-            <ProtectedRoute requireUserType="admin">
-              <AdminInfluencers />
-            </ProtectedRoute>
-          } />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+          <Route path="/admin" element={<Admin />} />
+          <Route path="/admin/brands" element={<AdminBrands />} />
+          <Route path="/admin/influencers" element={<AdminInfluencers />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { 
   Sidebar, 
@@ -15,12 +16,11 @@ import {
   Settings, 
   CreditCard, 
   FileText,
-  LogOut,
-  TrendingUp,
-  Home
+  Home,
+  TrendingUp
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const menuItems = [
   {
@@ -62,10 +62,10 @@ const menuItems = [
 
 export function DashboardSidebar() {
   const location = useLocation();
+  const navigate = useNavigate();
   
-  const handleLogout = () => {
-    // Handle logout logic here
-    window.location.href = '/';
+  const handleHomeClick = () => {
+    navigate('/');
   };
 
   const isActive = (href: string) => {
@@ -145,11 +145,11 @@ export function DashboardSidebar() {
       <SidebarFooter className="p-4 border-t border-gray-100">
         <Button 
           variant="ghost" 
-          onClick={handleLogout}
-          className="w-full justify-start text-gray-600 hover:text-red-600 hover:bg-red-50 rounded-xl transition-all duration-300 hover:scale-102"
+          onClick={handleHomeClick}
+          className="w-full justify-start text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-xl transition-all duration-300 hover:scale-102"
         >
-          <LogOut className="w-4 h-4 mr-3" />
-          Logout
+          <Home className="w-4 h-4 mr-3" />
+          Back to Home
         </Button>
       </SidebarFooter>
     </Sidebar>

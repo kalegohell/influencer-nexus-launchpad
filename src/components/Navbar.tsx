@@ -1,14 +1,12 @@
+
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
-import { TrendingUp, Menu, X, User, LogOut } from 'lucide-react';
-import { useAuth } from '@/hooks/useAuth';
+import { TrendingUp, Menu, X } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const { user, signOut, loading } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -19,24 +17,8 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const handleAuthAction = () => {
-    if (user) {
-      navigate('/dashboard');
-    } else {
-      navigate('/auth');
-    }
-  };
-
-  const handleSignOut = async () => {
-    try {
-      await signOut();
-      // Force a page refresh to ensure clean state
-      window.location.href = '/';
-    } catch (error) {
-      console.error('Error during sign out:', error);
-      // Force refresh even if there's an error
-      window.location.href = '/';
-    }
+  const handleDashboardClick = () => {
+    navigate('/brand-dashboard');
   };
 
   return (
@@ -81,38 +63,12 @@ const Navbar = () => {
 
           {/* Right side */}
           <div className="flex items-center space-x-3">
-            {!loading && (
-              <>
-                {user ? (
-                  <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                      <Button variant="outline" className="flex items-center space-x-2">
-                        <User className="w-4 h-4" />
-                        <span className="hidden md:inline">
-                          {user.user_metadata?.full_name || user.email}
-                        </span>
-                      </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end">
-                      <DropdownMenuItem onClick={() => navigate('/dashboard')}>
-                        Dashboard
-                      </DropdownMenuItem>
-                      <DropdownMenuItem onClick={handleSignOut}>
-                        <LogOut className="w-4 h-4 mr-2" />
-                        Sign Out
-                      </DropdownMenuItem>
-                    </DropdownMenuContent>
-                  </DropdownMenu>
-                ) : (
-                  <Button 
-                    onClick={handleAuthAction}
-                    className="bg-blue-600 hover:bg-blue-700 text-white"
-                  >
-                    Sign In
-                  </Button>
-                )}
-              </>
-            )}
+            <Button 
+              onClick={handleDashboardClick}
+              className="bg-blue-600 hover:bg-blue-700 text-white"
+            >
+              Dashboard
+            </Button>
 
             {/* Mobile Menu Button */}
             <Button
@@ -146,16 +102,6 @@ const Navbar = () => {
                 {item.label}
               </a>
             ))}
-            {user && (
-              <Button
-                variant="ghost"
-                onClick={handleSignOut}
-                className="w-full justify-start px-4 py-3 text-gray-700 hover:text-blue-700"
-              >
-                <LogOut className="w-4 h-4 mr-2" />
-                Sign Out
-              </Button>
-            )}
           </div>
         </div>
       </div>
