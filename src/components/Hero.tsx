@@ -4,6 +4,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Checkbox } from '@/components/ui/checkbox';
 import { ArrowDown, TrendingUp, Users } from 'lucide-react';
 import { useCountUp } from '@/hooks/useCountUp';
 import { useToast } from '@/hooks/use-toast';
@@ -36,14 +37,23 @@ const Hero = () => {
     fullName: ''
   });
 
-  // Influencer signup form state
+  // Enhanced influencer signup form state
   const [influencerForm, setInfluencerForm] = useState({
     name: '',
+    email: '',
+    password: '',
+    phone: '',
     niche: '',
     followers: '',
     instagram: '',
-    email: '',
-    password: ''
+    tiktok: '',
+    youtube: '',
+    twitter: '',
+    linkedin: '',
+    website: '',
+    barterAvailable: false,
+    contentTypes: [] as string[],
+    location: ''
   });
 
   const handleBrandSignup = async (e: React.FormEvent) => {
@@ -97,6 +107,15 @@ const Hero = () => {
     setIsLoading(true);
 
     try {
+      const socialMediaHandles = {
+        instagram: influencerForm.instagram,
+        tiktok: influencerForm.tiktok,
+        youtube: influencerForm.youtube,
+        twitter: influencerForm.twitter,
+        linkedin: influencerForm.linkedin,
+        website: influencerForm.website
+      };
+
       const { error } = await supabase.auth.signUp({
         email: influencerForm.email,
         password: influencerForm.password,
@@ -105,9 +124,13 @@ const Hero = () => {
           data: {
             full_name: influencerForm.name,
             user_type: 'influencer',
+            phone: influencerForm.phone,
             niche: influencerForm.niche,
             followers: influencerForm.followers,
-            instagram: influencerForm.instagram
+            social_media_handles: socialMediaHandles,
+            barter_available: influencerForm.barterAvailable,
+            content_types: influencerForm.contentTypes,
+            location: influencerForm.location
           }
         }
       });
@@ -120,9 +143,24 @@ const Hero = () => {
       });
 
       setInfluencerOnboardingOpen(false);
-      setInfluencerForm({ name: '', niche: '', followers: '', instagram: '', email: '', password: '' });
+      setInfluencerForm({ 
+        name: '', 
+        email: '', 
+        password: '', 
+        phone: '', 
+        niche: '', 
+        followers: '', 
+        instagram: '', 
+        tiktok: '', 
+        youtube: '', 
+        twitter: '', 
+        linkedin: '', 
+        website: '', 
+        barterAvailable: false, 
+        contentTypes: [], 
+        location: '' 
+      });
       
-      // Redirect to auth page for login
       setTimeout(() => {
         navigate('/auth');
       }, 2000);
@@ -136,6 +174,15 @@ const Hero = () => {
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const handleContentTypeChange = (contentType: string, checked: boolean) => {
+    setInfluencerForm(prev => ({
+      ...prev,
+      contentTypes: checked 
+        ? [...prev.contentTypes, contentType]
+        : prev.contentTypes.filter(type => type !== contentType)
+    }));
   };
 
   // Animated counters
@@ -286,92 +333,224 @@ const Hero = () => {
                   Join as Influencer
                 </Button>
               </DialogTrigger>
-              <DialogContent className="bg-white border border-gray-200 shadow-2xl max-w-md mx-4 rounded-2xl">
+              <DialogContent className="bg-white border border-gray-200 shadow-2xl max-w-2xl mx-4 rounded-2xl max-h-[90vh] overflow-y-auto">
                 <DialogHeader>
                   <DialogTitle className="text-gray-900 text-xl md:text-2xl font-bold">
                     Apply as Influencer
                   </DialogTitle>
                 </DialogHeader>
-                <form onSubmit={handleInfluencerSignup} className="space-y-4 p-2">
-                  <div className="space-y-2">
-                    <Label htmlFor="name" className="text-gray-700 font-medium">Full Name</Label>
-                    <Input 
-                      id="name" 
-                      value={influencerForm.name}
-                      onChange={(e) => setInfluencerForm({...influencerForm, name: e.target.value})}
-                      className="bg-white border-gray-300 text-gray-900 focus:border-blue-500 focus:ring-blue-500/20 rounded-lg h-11" 
-                      placeholder="Enter your full name"
-                      required
-                    />
+                <form onSubmit={handleInfluencerSignup} className="space-y-6 p-2">
+                  {/* Basic Information */}
+                  <div className="space-y-4">
+                    <h3 className="text-lg font-semibold text-gray-800 border-b pb-2">Basic Information</h3>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div className="space-y-2">
+                        <Label htmlFor="name" className="text-gray-700 font-medium">Full Name *</Label>
+                        <Input 
+                          id="name" 
+                          value={influencerForm.name}
+                          onChange={(e) => setInfluencerForm({...influencerForm, name: e.target.value})}
+                          className="bg-white border-gray-300 text-gray-900 focus:border-blue-500 focus:ring-blue-500/20 rounded-lg h-11" 
+                          placeholder="Enter your full name"
+                          required
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="influencer-email" className="text-gray-700 font-medium">Email *</Label>
+                        <Input 
+                          id="influencer-email" 
+                          type="email" 
+                          value={influencerForm.email}
+                          onChange={(e) => setInfluencerForm({...influencerForm, email: e.target.value})}
+                          className="bg-white border-gray-300 text-gray-900 focus:border-blue-500 focus:ring-blue-500/20 rounded-lg h-11" 
+                          placeholder="your@email.com"
+                          required
+                        />
+                      </div>
+                    </div>
+                    
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div className="space-y-2">
+                        <Label htmlFor="phone" className="text-gray-700 font-medium">Contact Number</Label>
+                        <Input 
+                          id="phone" 
+                          value={influencerForm.phone}
+                          onChange={(e) => setInfluencerForm({...influencerForm, phone: e.target.value})}
+                          className="bg-white border-gray-300 text-gray-900 focus:border-blue-500 focus:ring-blue-500/20 rounded-lg h-11" 
+                          placeholder="+1 (555) 123-4567"
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="location" className="text-gray-700 font-medium">Location</Label>
+                        <Input 
+                          id="location" 
+                          value={influencerForm.location}
+                          onChange={(e) => setInfluencerForm({...influencerForm, location: e.target.value})}
+                          className="bg-white border-gray-300 text-gray-900 focus:border-blue-500 focus:ring-blue-500/20 rounded-lg h-11" 
+                          placeholder="City, Country"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="space-y-2">
+                      <Label htmlFor="influencer-password" className="text-gray-700 font-medium">Password *</Label>
+                      <Input 
+                        id="influencer-password" 
+                        type="password" 
+                        value={influencerForm.password}
+                        onChange={(e) => setInfluencerForm({...influencerForm, password: e.target.value})}
+                        className="bg-white border-gray-300 text-gray-900 focus:border-blue-500 focus:ring-blue-500/20 rounded-lg h-11" 
+                        placeholder="Create a password"
+                        required
+                        minLength={6}
+                      />
+                    </div>
                   </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="niche" className="text-gray-700 font-medium">Content Niche</Label>
-                    <Select value={influencerForm.niche} onValueChange={(value) => setInfluencerForm({...influencerForm, niche: value})}>
-                      <SelectTrigger className="bg-white border-gray-300 text-gray-900 focus:border-blue-500 focus:ring-blue-500/20 rounded-lg h-11">
-                        <SelectValue placeholder="Select your niche" />
-                      </SelectTrigger>
-                      <SelectContent className="bg-white border-gray-200 rounded-lg shadow-lg">
-                        <SelectItem value="lifestyle">Lifestyle</SelectItem>
-                        <SelectItem value="fitness">Fitness</SelectItem>
-                        <SelectItem value="beauty">Beauty</SelectItem>
-                        <SelectItem value="tech">Technology</SelectItem>
-                        <SelectItem value="travel">Travel</SelectItem>
-                      </SelectContent>
-                    </Select>
+
+                  {/* Content & Audience Details */}
+                  <div className="space-y-4">
+                    <h3 className="text-lg font-semibold text-gray-800 border-b pb-2">Content & Audience</h3>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div className="space-y-2">
+                        <Label htmlFor="niche" className="text-gray-700 font-medium">Content Niche *</Label>
+                        <Select value={influencerForm.niche} onValueChange={(value) => setInfluencerForm({...influencerForm, niche: value})}>
+                          <SelectTrigger className="bg-white border-gray-300 text-gray-900 focus:border-blue-500 focus:ring-blue-500/20 rounded-lg h-11">
+                            <SelectValue placeholder="Select your niche" />
+                          </SelectTrigger>
+                          <SelectContent className="bg-white border-gray-200 rounded-lg shadow-lg">
+                            <SelectItem value="lifestyle">Lifestyle</SelectItem>
+                            <SelectItem value="fitness">Fitness & Health</SelectItem>
+                            <SelectItem value="beauty">Beauty & Fashion</SelectItem>
+                            <SelectItem value="tech">Technology</SelectItem>
+                            <SelectItem value="travel">Travel</SelectItem>
+                            <SelectItem value="food">Food & Cooking</SelectItem>
+                            <SelectItem value="gaming">Gaming</SelectItem>
+                            <SelectItem value="business">Business & Finance</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="followers" className="text-gray-700 font-medium">Total Follower Count *</Label>
+                        <Select value={influencerForm.followers} onValueChange={(value) => setInfluencerForm({...influencerForm, followers: value})}>
+                          <SelectTrigger className="bg-white border-gray-300 text-gray-900 focus:border-blue-500 focus:ring-blue-500/20 rounded-lg h-11">
+                            <SelectValue placeholder="Select range" />
+                          </SelectTrigger>
+                          <SelectContent className="bg-white border-gray-200 rounded-lg shadow-lg">
+                            <SelectItem value="1k">1K - 10K</SelectItem>
+                            <SelectItem value="10k">10K - 50K</SelectItem>
+                            <SelectItem value="50k">50K - 100K</SelectItem>
+                            <SelectItem value="100k">100K - 500K</SelectItem>
+                            <SelectItem value="500k">500K - 1M</SelectItem>
+                            <SelectItem value="1m">1M+</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                    </div>
+
+                    {/* Content Types */}
+                    <div className="space-y-3">
+                      <Label className="text-gray-700 font-medium">Content Types You Create</Label>
+                      <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                        {['Photos', 'Videos', 'Stories', 'Reels', 'Live Streaming', 'Blog Posts'].map((type) => (
+                          <div key={type} className="flex items-center space-x-2">
+                            <Checkbox
+                              id={type}
+                              checked={influencerForm.contentTypes.includes(type)}
+                              onCheckedChange={(checked) => handleContentTypeChange(type, checked as boolean)}
+                            />
+                            <Label htmlFor={type} className="text-sm text-gray-600">{type}</Label>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
                   </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="followers" className="text-gray-700 font-medium">Follower Count</Label>
-                    <Select value={influencerForm.followers} onValueChange={(value) => setInfluencerForm({...influencerForm, followers: value})}>
-                      <SelectTrigger className="bg-white border-gray-300 text-gray-900 focus:border-blue-500 focus:ring-blue-500/20 rounded-lg h-11">
-                        <SelectValue placeholder="Select range" />
-                      </SelectTrigger>
-                      <SelectContent className="bg-white border-gray-200 rounded-lg shadow-lg">
-                        <SelectItem value="1k">1K - 10K</SelectItem>
-                        <SelectItem value="10k">10K - 100K</SelectItem>
-                        <SelectItem value="100k">100K - 1M</SelectItem>
-                        <SelectItem value="1m">1M+</SelectItem>
-                      </SelectContent>
-                    </Select>
+
+                  {/* Social Media Links */}
+                  <div className="space-y-4">
+                    <h3 className="text-lg font-semibold text-gray-800 border-b pb-2">Social Media Profiles</h3>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div className="space-y-2">
+                        <Label htmlFor="instagram" className="text-gray-700 font-medium">Instagram Handle *</Label>
+                        <Input 
+                          id="instagram" 
+                          value={influencerForm.instagram}
+                          onChange={(e) => setInfluencerForm({...influencerForm, instagram: e.target.value})}
+                          placeholder="@yourusername" 
+                          className="bg-white border-gray-300 text-gray-900 focus:border-blue-500 focus:ring-blue-500/20 rounded-lg h-11" 
+                          required
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="tiktok" className="text-gray-700 font-medium">TikTok Handle</Label>
+                        <Input 
+                          id="tiktok" 
+                          value={influencerForm.tiktok}
+                          onChange={(e) => setInfluencerForm({...influencerForm, tiktok: e.target.value})}
+                          placeholder="@yourusername" 
+                          className="bg-white border-gray-300 text-gray-900 focus:border-blue-500 focus:ring-blue-500/20 rounded-lg h-11" 
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="youtube" className="text-gray-700 font-medium">YouTube Channel</Label>
+                        <Input 
+                          id="youtube" 
+                          value={influencerForm.youtube}
+                          onChange={(e) => setInfluencerForm({...influencerForm, youtube: e.target.value})}
+                          placeholder="Channel Name or URL" 
+                          className="bg-white border-gray-300 text-gray-900 focus:border-blue-500 focus:ring-blue-500/20 rounded-lg h-11" 
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="twitter" className="text-gray-700 font-medium">Twitter/X Handle</Label>
+                        <Input 
+                          id="twitter" 
+                          value={influencerForm.twitter}
+                          onChange={(e) => setInfluencerForm({...influencerForm, twitter: e.target.value})}
+                          placeholder="@yourusername" 
+                          className="bg-white border-gray-300 text-gray-900 focus:border-blue-500 focus:ring-blue-500/20 rounded-lg h-11" 
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="linkedin" className="text-gray-700 font-medium">LinkedIn Profile</Label>
+                        <Input 
+                          id="linkedin" 
+                          value={influencerForm.linkedin}
+                          onChange={(e) => setInfluencerForm({...influencerForm, linkedin: e.target.value})}
+                          placeholder="LinkedIn URL or username" 
+                          className="bg-white border-gray-300 text-gray-900 focus:border-blue-500 focus:ring-blue-500/20 rounded-lg h-11" 
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="website" className="text-gray-700 font-medium">Website/Portfolio</Label>
+                        <Input 
+                          id="website" 
+                          value={influencerForm.website}
+                          onChange={(e) => setInfluencerForm({...influencerForm, website: e.target.value})}
+                          placeholder="https://yourwebsite.com" 
+                          className="bg-white border-gray-300 text-gray-900 focus:border-blue-500 focus:ring-blue-500/20 rounded-lg h-11" 
+                        />
+                      </div>
+                    </div>
                   </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="instagram" className="text-gray-700 font-medium">Instagram Handle</Label>
-                    <Input 
-                      id="instagram" 
-                      value={influencerForm.instagram}
-                      onChange={(e) => setInfluencerForm({...influencerForm, instagram: e.target.value})}
-                      placeholder="@yourusername" 
-                      className="bg-white border-gray-300 text-gray-900 focus:border-blue-500 focus:ring-blue-500/20 rounded-lg h-11" 
-                      required
-                    />
+
+                  {/* Collaboration Preferences */}
+                  <div className="space-y-4">
+                    <h3 className="text-lg font-semibold text-gray-800 border-b pb-2">Collaboration Preferences</h3>
+                    <div className="flex items-center space-x-3">
+                      <Checkbox
+                        id="barterAvailable"
+                        checked={influencerForm.barterAvailable}
+                        onCheckedChange={(checked) => setInfluencerForm({...influencerForm, barterAvailable: checked as boolean})}
+                      />
+                      <Label htmlFor="barterAvailable" className="text-gray-700 font-medium">
+                        I'm open to barter collaborations (product exchange)
+                      </Label>
+                    </div>
                   </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="influencer-email" className="text-gray-700 font-medium">Email</Label>
-                    <Input 
-                      id="influencer-email" 
-                      type="email" 
-                      value={influencerForm.email}
-                      onChange={(e) => setInfluencerForm({...influencerForm, email: e.target.value})}
-                      className="bg-white border-gray-300 text-gray-900 focus:border-blue-500 focus:ring-blue-500/20 rounded-lg h-11" 
-                      placeholder="your@email.com"
-                      required
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="influencer-password" className="text-gray-700 font-medium">Password</Label>
-                    <Input 
-                      id="influencer-password" 
-                      type="password" 
-                      value={influencerForm.password}
-                      onChange={(e) => setInfluencerForm({...influencerForm, password: e.target.value})}
-                      className="bg-white border-gray-300 text-gray-900 focus:border-blue-500 focus:ring-blue-500/20 rounded-lg h-11" 
-                      placeholder="Create a password"
-                      required
-                      minLength={6}
-                    />
-                  </div>
+
                   <Button 
                     type="submit" 
-                    className="w-full bg-blue-600 hover:bg-blue-700 text-white h-11 rounded-lg font-semibold transition-colors duration-200"
+                    className="w-full bg-blue-600 hover:bg-blue-700 text-white h-12 rounded-lg font-semibold transition-colors duration-200"
                     disabled={isLoading}
                   >
                     {isLoading ? "Submitting Application..." : "Apply to Network"}
