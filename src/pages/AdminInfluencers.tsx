@@ -2,7 +2,7 @@
 import React from 'react';
 import { SidebarProvider, SidebarInset } from "@/components/ui/sidebar";
 import { AdminSidebar } from "@/components/AdminSidebar";
-import { InfluencerDirectory } from "@/components/InfluencerDirectory";
+import InfluencerApplicationsList from "@/components/InfluencerApplicationsList";
 
 const AdminInfluencers = () => {
   return (
@@ -11,7 +11,7 @@ const AdminInfluencers = () => {
         <div className="min-h-screen flex w-full">
           <AdminSidebar />
           <SidebarInset className="flex-1">
-            <InfluencerDirectory />
+            <InfluencerApplicationsList />
           </SidebarInset>
         </div>
       </SidebarProvider>
